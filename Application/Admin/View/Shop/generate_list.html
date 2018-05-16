@@ -1,0 +1,123 @@
+<include file="Public:header" />
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 荷花管理 <span class="c-gray en">&gt;</span> 荷花列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="get">
+	<!-- <div class="text-c"> 荷花名称：
+		<input type="text" class="input-text" style="width:250px" placeholder="" name="word" value="{:I('word')}">
+		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div> -->
+	<div class="text-c">
+		<span class="select-box inline">
+			<select name="word" class="select">
+				<option value="">全部状态</option>
+				<option value="1" <if condition="I('get.word') eq 1">selected</if> >正在生长</option>
+				<option value="3" <if condition="I('get.word') eq 3">selected</if>>已凋谢</option>
+			</select>
+		</span>
+		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+
+	</form>
+	</div>
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<strong id="count">{$count}</strong> 条</span> </div>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+
+			<tr class="text-c">
+				<th width="30"><input type="checkbox" name="" value=""></th>
+				<th width="50">ID</th>
+				<th width="100">用户ID</th>
+				<th width="100">荷花ID</th>
+				<th width="100">荷苗名称</th>
+				<th width="100">种植莲藕</th>
+				<th width="100">价格点券</th>
+				<th width="100">荷花状态</th>
+				<th>开始种植时间</th>
+				<th width="50">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="v">
+			<tr class="text-c">
+				<td><input type="checkbox" name="del[]" value="{$v.id}" ></td>
+				<td>{$v.id}</td>
+				<td>{$v.uid}</td>
+				<td>{$v.hid}</td>
+				<td>{$v.name}</td>
+				<td>{:$v['zeng_lotus_new']+$v['zeng_lotus_old']}</td>
+				<td>{$v.price}</td>
+				<td>{$v.state}</td>
+				<td>{$v.start_time|date='Y-m-d H:i:s',###}</td>
+			<!-- 	<td>{$v.start_time|get_life}</td> -->
+				<td class="td-manage"></a> <!-- <a title="编辑" href="javascript:;" onclick="seedling_add('荷苗修改','{:U('',array('id'=>$v['id']))}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> --> <a title="删除" href="javascript:;" onclick="seedling_del(this,{$v.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="page">
+		{$page}
+	</div>
+</div>
+
+<script type="text/javascript">
+/*
+	参数解释：
+	title	标题
+	url		请求的url
+	id		需要操作的数据id
+	w		弹出层宽度（缺省调默认值）
+	h		弹出层高度（缺省调默认值）
+*/
+
+/*编辑-添加*/
+function seedling_add(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+/* 批量删除 */
+function datadel(){
+ var id='';	
+ $("input[name='del[]']:checked").each(function(){
+ 	id += $(this).val()+',';
+ });
+
+ if(id == ''){
+ 	layer.msg('必须选择一个',{icon:2,time:1000});
+ 	return false;
+ }
+ layer.confirm('确认要删除吗？',function(index){
+ 	$.post("{:U('generate_del')}",{id:id},function(data){
+		if(data.status == 'y'){
+			var i = 0;
+			$("input[name='del[]']:checked").each(function(){
+				i++;
+				$(this).parents('tr').remove();
+			});
+			layer.msg(data.info,{icon:1,time:1000});
+			$("#count").text($("#count").text()-i);
+		}else{
+			layer.msg(data.info,{icon:2,time:1000});
+		}
+	});
+ });
+}
+/*删除*/
+function seedling_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:U('generate_del')}",{id:id},function(data){
+			if(data.status == 'y'){
+				layer.msg(data.info,{icon:1,time:1000});
+				$(obj).parents("tr").remove();
+				$("#count").text($("#count").text()-1);
+			}else{
+				layer.msg(data.info,{icon:2,time:1000});
+			}
+		},'json');
+	});
+}
+
+</script>
+</body>
+</html>

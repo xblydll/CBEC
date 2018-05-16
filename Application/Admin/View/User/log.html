@@ -1,0 +1,141 @@
+<include file="Public:header" />
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户管理 <span class="c-gray en">&gt;</span> 用户记录 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+
+<form action="" method="get">
+	<div class="text-c">
+		日期：
+		<input type="text" onfocus="WdatePicker()" value="{:I('get.start')}" name="start" id="datemin" class="input-text Wdate" style="width:120px;"> -
+		<input type="text" onfocus="WdatePicker()" value="{:I('get.end')}" name="end" id="datemin" class="input-text Wdate" style="width:120px;">
+		<input type="text" class="input-text" style="width:250px" placeholder="账号ID" name="word" value="{:I('word')}">
+		<span class="select-box inline">
+			<select name="type" class="select">
+				<option value="1">赠送</option>
+				<option value="2" <if condition="I('get.type') eq 2">selected</if> >兑换</option>
+			</select>
+		</span>
+		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+
+	
+	</div>
+</form>
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+		</span> 
+		<span class="r">共有数据：<strong id="count">{:count($list)}</strong> 条</span> 
+	</div>
+
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr class="text-c">
+				<th><input type="checkbox" name="" value=""></th>
+				<th>账号昵称</th>
+				<th>账号id</th>
+				<if condition="I('get.type') neq 2">
+					<th>对方昵称</th>
+					<th>对方id</th>
+					<th>数量</th>
+				</if>
+				<if condition="I('get.type') eq 2">
+					<th>莲藕</th>
+					<th>莲蓬</th>
+				</if>
+				<th>莲藕剩余</th>
+				<th>莲蓬剩余</th>
+				<th>操作时间</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="v">
+			<tr class="text-c">
+				<td><input type="checkbox" name="del[]" value="{$v.id}" ></td>
+				<td>{$v.uid|get_rname2}</td>
+				<td>{$v.uid}</td>
+				<if condition="I('get.type') neq 2">
+					<td>{$v.others_id|get_rname2}</td>
+					<td>{$v.others_id}</td>
+				</if>
+				<td>{$v.number}</td>
+				<if condition="I('get.type') eq 2">
+					<td>{$v.number1}</td>
+				</if>
+				<td>{$v.lotus}</td>
+				<td>{$v.peng}</td>
+				<td>{$v.add_time|date='Y-m-d H:i:s',###}</td>
+				<td class="td-manage"> <a title="删除" href="javascript:;" onclick="equipment_del(this,{$v.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="page">
+		{$page}
+	</div>
+</div>
+
+<script type="text/javascript">
+/*
+	参数解释：
+	title	标题
+	url		请求的url
+	id		需要操作的数据id
+	w		弹出层宽度（缺省调默认值）
+	h		弹出层高度（缺省调默认值）
+*/
+
+/*编辑-添加*/
+function equipment_add(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+/* 批量删除 */
+function datadel(){
+ var id='';	
+ $("input[name='del[]']:checked").each(function(){
+ 	id += $(this).val()+',';
+ });
+
+ if(id == ''){
+ 	layer.msg('必须选择一个',{icon:2,time:1000});
+ 	return false;
+ }
+ layer.confirm('确认要删除吗？',function(index){
+ 	$.post("{:U('log_del')}",{id:id},function(data){
+		if(data.status == 'y'){
+			var i = 0;
+			$("input[name='del[]']:checked").each(function(){
+				i++;
+				$(this).parents('tr').remove();
+			});
+			layer.msg(data.info,{icon:1,time:1000});
+			$("#count").text($("#count").text()-i);
+		}else{
+			layer.msg(data.info,{icon:2,time:1000});
+		}
+	});
+ });
+}
+/*删除*/
+function equipment_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:U('log_del')}",{id:id},function(data){
+			if(data.status == 'y'){
+				layer.msg(data.info,{icon:1,time:1000});
+				$(obj).parents("tr").remove();
+				$("#count").text($("#count").text()-1);
+			}else{
+				layer.msg(data.info,{icon:2,time:1000});
+			}
+		},'json');
+	});
+}
+
+</script>
+</body>
+</html>

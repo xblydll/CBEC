@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title>荷塘月色</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	   	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	    <meta content="telephone=no" name="format-detection"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/ydui.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/style.css">
+		<script type="text/javascript" src="__PUBLIC__js/phoneforpx.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/ydui.flexible.js"></script>
+<!-- 			<script type="text/javascript" src="__PUBLIC__js/ydui.js"></script> -->
+	</head>
+	<body>
+		<div class="pond_bg">
+			<a href="{:U('Main/index')}">
+				<div class="index_top_logout"></div>
+			</a>
+			<!-- <div class="pond_lotus_1"></div> -->
+			<foreach name="generate" item="vo" >
+<!-- 			<div class="lotus_status_{$vo.index} slow_show">
+				<p >已存活:{$vo.start_time|get_life}天</p>
+			</div> -->
+			<div class="pond_lotus_2 lotus_list_{$vo.index}" onclick="removeLotus({$vo.id},{$vo.index},{$vo.start_time|get_life})"></div>
+			</foreach>
+			<div class="pond_dragonfly"></div>
+			<div class="pond_butterfly_1"></div>
+			<div class="pond_butterfly_2"></div>
+
+			<!-- 清除荷花窗口 -->
+			<div class="window_shadow" id="clear_lotus" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden()"></div>
+						<div class="message">
+							<p class="text" id="texthtml">是否铲除此荷花?</p>
+							<div class="no" onclick="tohidden()" id="no">取消</div>
+							<div class="yes" onclick="cleara()" id="yes">确定</div>
+						</div>
+				</div>
+			</div>
+			<input type="hidden" name="hidden" id="hidden" value="">
+			<input type="hidden" name="hidden2" id="hidden2" value="">
+		</div>
+	</body>
+	</html>
+	<script type="text/javascript">
+
+	function displayShow(){
+		$('.slow_show').toggle('slow');
+		// setTimeout(displayShow(),1000);
+	}
+	// $(document).ready(function(){
+	// 	window.setInterval("displayShow()",3000)
+	// })
+	
+
+	function tohidden(){
+		$('#clear_lotus').hide()
+	}
+
+	function removeLotus(e,a,b){
+		//e用来存放荷花id，a用来存放荷花排序数值。
+		if(b<15){
+			alert('荷花生长时间不足十五天，无法铲除！')
+		}else{
+		$('#clear_lotus').show();
+		$('#hidden').val(e);
+		$('#hidden2').val(a);
+		//初始化数据
+		$('#yes').show();
+		$('#no').show();
+		$('#texthtml').text("是否铲除此荷花?");}
+	}
+
+	function cleara(){
+		var e = $('#hidden').val();
+		var a = $('#hidden2').val();
+		$.post("{:U('clearLotus')}",{id:e},function(data){
+			console.log(data);
+		$('#yes').hide();
+		$('#no').hide();
+		$('#texthtml').text(data.info);
+		setTimeout(function(){
+			// window.location.reload();
+			$('#clear_lotus').hide()
+		},600);
+		$('.lotus_list_'+a).hide();
+	});
+		// 初始化页面数据
+
+		$('#hidden').val('');
+		$('#hidden2').val('');
+	}
+
+		// function removeLotus(e){
+		// 	$('.lotus_list_'+e).hide();
+		// }
+	</script>

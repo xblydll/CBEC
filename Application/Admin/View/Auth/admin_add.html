@@ -1,0 +1,93 @@
+<include file="Public/header" />
+<body>
+<div class="pd-20">
+  <form action="" method="post" class="form form-horizontal" id="form-member-add">
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>账号：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$username}" name="username" datatype="*" nullmsg="请输入账号" <if condition="$id gt 0">disabled</if> >
+      </div>
+      <div class="col-4" id="error"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>密码：</label>
+      <div class="formControls col-5">
+        <input type="password" class="input-text" value="" name="password" 
+        <if condition="$id gt 0">placeholder="填写为修改"<else/>datatype="*" nullmsg="请输入密码"</if>>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>昵称：</label>
+      <div class="formControls col-5">
+        <input type="text" class="input-text" value="{$nickname}" name="nickname" datatype="*" nullmsg="请输入昵称">
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <label class="form-label col-3"><span class="c-red">*</span>角色：</label>
+      <div class="formControls col-5 skin-minimal">
+      <volist name="role" id="v">
+      <div class="radio-box">
+        <input type="checkbox" id="role-{$v.id}" value="{$v.id}" name="role[]" 
+        <if condition="in_array($v['id'],$roles)">checked</if> >
+        <label for="role-{$v.id}">{$v.title}</label>
+      </div>
+      </volist>
+      </div>
+      <div class="col-4"> </div>
+    </div>
+
+    <div class="row cl">
+      <div class="col-9 col-offset-3">
+        <input type="hidden" value="{$id}" name="id">
+        <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+
+<script type="text/javascript">
+//选择框
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").Validform({
+		tiptype:2,
+    ajaxPost:true,
+		callback:function(data){
+      setTimeout(function(){
+        $.Hidemsg();
+        if(data.status == 'y'){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.location.reload();
+          parent.layer.close(index);
+        }
+      },1000);
+		}
+	});
+   $("input[name='username']").blur(function(){
+        var username = $.trim($(this).val());
+        if(username == ''){
+          return false;
+        }
+        $.post("{:U('repeat')}",{repeat:username},function(data){
+          if(data.status == 'n'){
+            $("#error").html("<span style='color:red;'>此账号已被使用</span>");
+          }else{
+            $("#error").html("<span style='color:#75d201;'>此账号可以使用</span>");
+          }
+      });
+   });
+});
+</script>
+</body>
+</html>

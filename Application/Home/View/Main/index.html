@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title>荷塘月色</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	   	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	    <meta content="telephone=no" name="format-detection"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/ydui.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/style.css">
+		<script type="text/javascript" src="__PUBLIC__js/phoneforpx.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/ydui.js"></script>
+	</head>
+	<style type="text/css">
+		.tab{width: 100%; height: 36px;line-height: 36px; display:flex;}
+		.tab div{background: #FFCC99;display:inline-block; flex: 1;margin-right: 2px;}
+		#goumai .content span,#goumai .title span{text-indent: 0;text-align:center;display: inline-block;flex: none;width: 20%;font-size: 14px;}
+		#huanwu tr td{font-size: 14px;padding: 5px 0}
+	</style>
+	<body>
+		<div class="index_bg">
+		<!-- <a href="{:U('Index/logout')}">退出</a> -->
+		<a href="{:U('Index/logout')}">
+			<div class="index_top_logout"></div></a>
+		<!-- 刷新 -->
+		
+		<div class="index_top_refresh" onclick="javascript:location.replace(location.href);"></div>
+		<!-- 音乐开关键 -->
+		<div class="index_top_music" id="music"></div>
+		<!-- 音乐开关键 end-->
+		<!-- 音频 -->
+		<audio controls="controls" autoplay="autoplay" id="mp3Btn" style="display: none;">
+		  <source src="__PUBLIC__music/mp4.mp3" type="audio/mp3" />
+		</audio>
+		<!-- 音频 end-->
+		<!-- 点击音效 -->
+		<audio controls="controls"  id="mp3Btn_2" style="display: none;">
+		  <source src="__PUBLIC__music/button.ogg" type="audio/ogg" />
+		</audio>
+		<!-- 点击音效 -->
+		
+		<div class="index_top">
+			<!-- <a href="http://t.cn/RN2gLgm"><div class="index_top_1"></div></a> -->
+	<!-- 		<div class="index_top_2" onclick="toggleClear()"></div> -->
+			<div class="index_top_3" onclick="toshow('mykf')"></div>
+			<!-- <div class="index_top_4" onclick="toshow('mybag')"></div> -->
+			<div class="index_top_5" onclick="toshow('notes')"></div>
+			<div class="index_top_7" onclick="toshow('infocenter')"></div>			
+			<div class="index_top_8" onclick="toshow('gift')"></div>
+			<!-- <div class="index_top_9" id="index_top_9" onclick="toshow('exchange')"></div> -->
+			<div class="index_top_6" onclick="togglePick()"></div>
+			<!-- 增苗 -->
+ 			<div class="index_top_10"  onclick="toggleAdd()"></div>
+
+ 			<div class="index_top_11" onclick="toshow('develop')"></div>
+ 			<!-- 提现 -->
+<!--  			<div class="index_top_11"  onclick="toshow('get_money')"></div>
+ -->			<!-- 新增，给新玩家注册账号密码 -->
+		</div>
+		
+		<div class="index_left">
+			<div class="index_left_1" onclick="toshow('rule')"></div>
+			<div class="index_left_2" onclick="toshow('help')"></div>
+			<div class="index_left_3"  onclick="toshow('canteen')"></div>
+		</div>
+
+		<!-- 名字及ID -->
+		<div class="index_left_4"><img src="__PUBLIC__image/woman.jpg"></div>
+		<div class="index_bottom_name"><if  condition="$he['offspringson'] egt 500">塘主<else/>场主</if></div>
+		<div class="index_bottom_nickname">{$he.user.name}</div>
+		<div class="index_bottom_id">{$he.user.id}</div>
+		<div class="index_bottom_lo">{$he.lotus_count}</div>
+		<div class="index_bottom_lp">{$he.user.peng}</div>
+		<div class="index_bottom_wz">{$he.user.lotus}</div>
+
+<!-- 			<div class="index_left_vertical">
+				<div class="index_left_1 index_left"></div>
+				<div class="index_left_3 index_left"></div>
+				<div class="index_left_4 index_left" onclick="toshow('rule')"></div>
+				<div class="index_left_6 index_left" onclick="toshow('mybag')"></div>
+				<div class="index_left_7 index_left" onclick="toshow('infocenter')"></div>
+				<div class="index_left_8 index_left" onclick="toshow('notes')"></div>
+			</div>
+			<div class="index_right_vertical">
+				<div class="index_right_1 index_right" onclick="toshow('supreme')"></div>
+				<div class="index_right_2 index_right" onclick="toshow('high')"></div>
+				<div class="index_right_3 index_right" onclick="toshow('middle')"></div>
+				<div class="index_right_4 index_right" onclick="toshow('junior')"></div>
+			</div>
+ -->			<!-- 主进入按钮 -->
+<!-- 			<div class="index_center_9"></div>
+			<a href="{:U('Game/pond')}">
+				<div class="index_center"></div>
+			</a> -->
+
+
+			<!-- 购买确认窗口 -->
+			<div class="window_shadow" id="buy_confirm" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('buy')"></div>
+						<div class="message">
+							<p class="text" id="texthtml">是否确定购买此商品?</p>
+							<div class="no" onclick="tohidden('buy')" id="no">取消</div>
+							<div class="yes" onclick="buy()" id="yes">确定</div>
+						</div>
+				</div>
+			</div>
+			<input type="hidden" name="hidden" id="hidden" value="">
+
+			<!-- 规则窗口 -->
+			<div class="window_shadow" id="rule">
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('rule')"></div>
+						<div class="message">
+						<h1>游戏规则</h1>
+						<h2>一、注册激活账号</h2>
+						<p>根据APP要求，填写游戏信息，注册账号。</p>
+						<h2>二、登陆账号</h2>
+						<p>进入APP，输入账号密码登陆。</p>
+						<h2>三、播种</h2>
+						<p>玩家到小卖部兑换荷苗，种植到荷塘里面即可。</p>
+						<h2>四、采摘</h2>
+						<p>系统每次拆分完后，会根据荷苗里莲藕的数量及收益率产生相应数量的莲藕和莲蓬，当莲藕和莲蓬可收获时，荷苗上方会显示白色的莲藕泡泡。每天您需要点击泡泡让莲藕和莲蓬进入仓库，否则当天产生的莲藕和莲蓬会被第二天产生的覆盖。</p>
+						<h2>五、增苗</h2>
+						<p>把仓库的莲藕放进荷塘。选择增苗工具，即可完成增苗。如当天未增苗到总数，则不会产生收益。如果荷苗的莲藕数量超过上限，增苗后多出来的莲藕将继续保留在仓库中，您可以在其它未达上限的荷苗增苗。</p>
+						<h2>六、收获</h2>
+						<p>选择收获工具，点击要收获的荷苗，则该荷苗产生的莲藕和莲蓬会收到您的仓库中，完成收获。</p>
+
+									<h1>奖励制度</h1>
+							<!-- <p>二、推广收获：推广玩家还能得到游戏中的莲藕和莲蓬奖励。</p> -->
+							<p>1，推广玩家1人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天。</p>
+							<p>2，推广玩家10人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天。</p>
+							<p>3，推广玩家20人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天、第三代下级玩家每天收益莲藕的1%，莲蓬固定收益0.1个*每玩家/天。</p>
+							<p>注：1，莲藕玩家可以互相赠送，莲蓬只能商城里购买商品时使用</p>
+							<p>2、平台赠送的下级收益在下级玩家完成“采摘”后发放。</p>
+
+						</div>
+				</div>
+			</div>
+
+
+
+			<!-- 帮助窗口 -->
+			<div class="window_shadow" id="help">
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('help')"></div>
+						<div class="message">
+						<h1>游戏的规章制度</h1>
+						<p>投资300莲藕兑换荷苗</p>
+						<p>每天生产莲藕数量为池塘内莲藕总数的2%</p>
+						<p>每天生产莲蓬数量为池塘内莲藕总数的1%</p>
+		<!-- 				<p>（注：1人民币=10点券，1个莲藕=10点券   一朵莲蓬=10积分）</p>
+						<p>玩家如果20天和25天的时候可以选择申请铲除荷苗（提前出场）:3000积分的荷苗每天获得12个莲藕×20天=240个莲藕，每天获得3个莲蓬×20=60个莲蓬。如果20天铲除，可以获得一个周期（30天）总产值的85%，360个莲藕×85%=306个莲藕，90个莲蓬×85%=76.5个莲蓬。3000积分的荷苗每天获得12个莲藕×25天=300个莲藕，每天获得3个莲蓬×25=75个莲蓬。25天选择铲除可以获得一个周期（30天）总产值的90%，360个莲藕×90%=324个莲藕，90个莲蓬×90%=81个莲蓬。</p> -->
+							
+									<h1>生长和推广收获：</h1>
+							<p>一、推广玩家1人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天。</p>
+							<p>二、推广玩家10人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天。</p>
+							<p>三、推广玩家20人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天、第三代下级玩家每天收益莲藕的1%，莲蓬固定收益0.1个*每玩家/天。</p>
+	
+
+						</div>
+				</div>
+			</div>
+
+
+			<!-- 背包窗口 -->
+			<div class="window_shadow" id="mybag">
+				<div class="mybag_window">
+					<div class="x_png" onclick="tohidden('mybag')"></div>
+					<div class="mybag_content">
+						<div class="mybag_img_1 mybag_img"></div>
+						<div class="mybag_img_2 mybag_img"></div>
+						<div class="mybag_img_3 mybag_img"></div>
+						<!-- 点券 -->
+						<div class="mybag_quan">{$he.user.coupons}</div>
+						<!-- 积分 -->
+						<div class="mybag_fen">{$he.user.integral}</div>
+<!-- 						<div class="item_quan" style="width: 100px;margin-left: -50px;color: #ffff00;line-height: 74px;">{$he.user.coupons}点券<span style="display: block; margin-top: -57px;">{$he.user.integral}积分</span></div> -->
+						<!-- 莲藕 -->
+						<div class="mybag_lianou mybag_lianou_item_1">{$he.count.lotus}个</div>
+						<div class="mybag_lianou mybag_lianou_item_2">{$he.user.profit_lotus}个</div>
+						<div class="mybag_lianou mybag_lianou_item_3">{$he.user.lotus}个</div>					
+<!-- 						<div class="item_lianou_1 item_lianou">{$he.user.lotus}个</div>
+						<div class="item_lianou_2 item_lianou">{$he.user.profit_lotus}个</div> -->
+						<!-- 莲蓬 -->
+						<div class="mybag_lianpeng mybag_lianpeng_item_1">{$he.count.peng}朵</div>
+						<div class="mybag_lianpeng mybag_lianpeng_item_2">{$he.user.profit_peng}朵</div>
+						<div class="mybag_lianpeng mybag_lianpeng_item_3">{$he.user.peng}朵</div>
+
+<!-- 						<div class="item_lianpeng_1 item_lianpeng">{$he.user.peng}朵</div>
+						<div class="item_lianpeng_2 item_lianpeng">{$he.user.profit_peng}朵</div> -->
+
+						<!-- <div class="toBack" onclick="tohidden('mybag')"></div> -->
+					</div>
+				</div>
+			</div>
+
+			<!-- 个人中心窗口 -->
+			<div class="window_shadow" id="infocenter" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('infocenter')"></div>
+						<div class="message" >				
+							<h1>个人中心</h1>
+							<table border='1' >
+							<tr><td>账号：</td>
+								<td>{$he.user.username}</td>
+							</tr>
+							<tr>
+								<td>等级：</td>
+								<td>{$he.user.level}</td>
+							</tr >
+								<td onclick="toshow('myteam')">邀请人数：</td>
+								<td style="color: red;font-weight: 600;font-size: 21px;" onclick="toshow('myteam')">
+								{$he.recommend}人</td>
+							</tr>
+							<tr>
+								<td>我的邀请码：</td>
+<!-- 								<td>{$he.code}</td>
+ -->								<if condition="$hehuanum eq 0"><td>*****</td><else />
+								<td>{$he.code}</td>
+								</if>
+							</tr>
+							<tr>
+								<td>种植荷花数量：</td>
+								<td>{:count($he['generate'])}朵</td>
+							</tr>
+							<tr>
+								<td>二级密码找回:</td>
+								<td><span onclick="toshow('twopass')" style="color:blue;">点击找回</span></td>
+							</tr>
+							<tr>
+								<td>实名认证:</td>
+								<if condition="$rb egt 1">
+								<td><span>已实名</span></td>
+                                <else/>
+								<td><span onclick="toshow('shiming')" style="color:blue;">点击实名</span></td>
+								</if>
+							</tr>
+							</table>
+						</div>
+				</div>
+			</div>
+            <!--二级密码z找回窗口-->
+			<div class="window_shadow" id="twopass" style="display: none;">
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('twopass')"></div>
+					<form action="" method="" class="register_forms" id="register_form1">					
+					<p><label>验证码：</label><input class="smsinput2" type="number" id="smsinput2" style="width:100px;"><input type="button" value="获取验证码" class="hqyzm"></p>
+					<p><label>新的二级密码：</label><input type="text" id="ejpassword" name="ejpassword"></p>
+					<div class="button" onclick="back_password()">确认</div>
+					</form>
+				</div>
+			</div>
+			<!--实名认证-->
+			<div class="window_shadow" id="shiming" style="display: none;">
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('shiming')"></div>
+					<form action="" method="" class="register_forms">					
+					<p><label>持卡人姓名：</label><input placeholder="请输入身份证姓名" type="text" id="ckrxm" name="ckrxm"></p>
+					<p><label>身份证号码：</label><input placeholder="请输入身份证号码" type="text" id="sfzhm" name="sfzhm"></p>
+					<p><label>银行名称：</label>
+						<select name="yhmc" class="yhmc">
+							<option value="999">请选择银行</option>
+							<option value="1">工商银行</option>
+							<option value="2">建设银行</option>
+							<option value="3">农业银行</option>
+							<option value="4">中国银行</option>
+							<option value="5">交通银行</option>
+							<option value="6">招商银行</option>
+							<option value="7">兴业银行</option>
+							<option value="8">邮政银行</option>
+							<option value="9">民生银行</option>
+							<option value="10">中信银行</option>
+							<option value="11">浦发银行</option>
+							<option value="12">平安银行</option>
+						</select>
+					</p>
+					<p><label>银行卡帐号：</label><input placeholder="请输入银行卡账号" type="text" id="yhkzh" name="yhkzh"></p>
+					<p><label>银行预留手机：</label><input placeholder="请输入银行预留手机" type="text" id="ylsjhm" name="ylsjhm"></p>
+					<p><label>验证码：</label><input class="smsinput3" type="number" id="smsinput3" style="width:100px;"><input type="button" value="获取验证码" class="hqyzm2"></p>		
+					<div class="button" onclick="shiming()">确认</div>
+					</form>
+				</div>
+			</div>
+			<!-- 我的团队窗口 -->
+			<div class="window_shadow" id="myteam" style="display: none;" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('myteam')"></div>
+						<p class="team_head">团队总人数<span >{$he['offspring']}</span>(激活人数：{$he['offspringson']})</p>
+						<p class="team_choose">
+						级别<img src="__PUBLIC__image/team_1.png"/ onclick="changeTable('1',{:count($he['offspring_1'])})" id="img_1" style="display: none">
+							<img src="__PUBLIC__image/team_1_0.png"/ style="display: block" id="img_0_1">
+							<img src="__PUBLIC__image/team_2.png"/ onclick="changeTable('2',{:count($he['offspring_2'])})" id="img_2">
+							<img src="__PUBLIC__image/team_2_0.png"/ style="display: none" id="img_0_2">
+							<img src="__PUBLIC__image/team_3.png"/ onclick="changeTable('3',{:count($he['offspring_3'])})" id="img_3">
+							<img src="__PUBLIC__image/team_3_0.png"/ style="display: none" id="img_0_3">
+						<text class="margin_left">人数</text>
+						<span style="color:black" id="team_num">{:count($he['offspring_1'])}</span>
+						<text style="font-size:12px;" class="margin_left">激活</text>
+						<span style="font-size:12px;" id="team_numson">{:count($he['offspring_1son'])}</span>
+						</p>
+						<div id="team_1" class="myteam">
+							<table border='1' cellspacing="20" cellpadding="10">
+							<tr>
+							    <th>ID</th>
+							    <th>昵称</th>
+							    <th>手机号</th>    
+							    <th>莲藕数量</th>
+							    <th>莲蓬数量</th>
+							    <th>状态</th>
+							</tr>
+							<volist name="he.offspring_1" id="vo" >
+							<tr>
+								<td>{$vo.register_id}</td>
+								<td>{$vo.register_id|get_user_name}</td>
+								<td>{$vo.username}</td>
+								<td>{$vo.lotus}</td>
+								<td>{$vo.peng}</td>
+								<if condition="$vo['is_active'] eq 0">
+								<td style="color: red" onclick="toshow('member_active','{$vo.register_id}')" class="">去激活</td>
+									<else />
+								<td>已激活</td>
+								</if>
+							</tr>
+							</volist>
+							</table>
+						</div>
+						<!-- 二级会员 -->
+						<div id="team_2" class="myteam" style="display: none">
+							<table border='1' cellspacing="20" cellpadding="10">
+							<tr>
+							    <th>ID</th>
+							    <th>昵称</th>
+							    <th>手机号</th>    
+							    <th>莲藕数量</th>
+							    <th>莲蓬数量</th>
+							    <th>状态</th>
+							</tr>
+
+							<volist name="he.offspring_2" id="vo" >
+							<tr>
+								<td>{$vo.register_id}</td>
+								<td>{$vo.register_id|get_user_name}</td>
+								<td>{$vo.register_id|get_user_tel}</td>
+								<td>{$vo.register_id|get_user_lotus}</td>
+								<td>{$vo.register_id|get_user_peng}</td>
+								<if condition="$vo['is_active'] eq 0">
+								    <if  condition="$he['offspringson'] egt 500">
+								    <td style="color: red" onclick="toshow('member_active2','{$vo.register_id}')" class="">去激活</td>
+								    <else/>
+								    <td>待激活</td>
+								    </if>
+								<else />
+								<td>已激活</td>
+								</if>								
+							</tr>
+							</volist>
+						
+							</table>
+						</div>
+						<!-- 三级会员 -->
+						<div id="team_3" class="myteam" style="display: none">
+							<table border='1' cellspacing="20" cellpadding="10">
+							<tr>
+							    <th>ID</th>
+							    <th>昵称</th>
+							    <th>手机号</th>    
+							    <th>莲藕数量</th>
+							    <th>莲蓬数量</th>
+							    <th>状态</th>
+							</tr>
+
+							<volist name="he.offspring_3" id="vo" >
+							<tr>
+								<td>{$vo.register_id}</td>
+								<td>{$vo.register_id|get_user_name}</td>
+								<td>{$vo.register_id|get_user_tel}</td>
+								<td>{$vo.register_id|get_user_lotus}</td>
+								<td>{$vo.register_id|get_user_peng}</td>
+								<if condition="$vo['is_active'] eq 0">
+								    <if  condition="$he['offspringson'] egt 500">
+								    <td style="color: red" onclick="toshow('member_active2','{$vo.register_id}')" class="">去激活</td>
+								    <else/>
+								    <td>待激活</td>
+								    </if>
+								<else />
+								<td>已激活</td>
+								</if>							
+						    </tr>
+							</volist>
+							</table>
+						</div>
+				</div>
+			</div>
+
+			<!-- 个人记录窗口 -->
+			<div class="window_shadow" id="notes" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('notes')"></div>
+						<div class="message" >				
+							<h1>记录</h1>
+<!-- 							<p><span>等级：</span>{$user.level}</p>
+							<p><span>种植荷花数量：</span>{$count}朵</p>
+							<p><span>邀请人数：</span>{$recommend}人</p>
+							<p><span>购买记录：</span></p> -->
+							
+							<div class="tab">
+								<div style="font-size: 12px;overflow: hidden;text-indent:0;text-align:center" onclick="noteShow('1')">收益</div>
+								<div style="font-size: 12px;overflow: hidden;text-indent:0;text-align:center" onclick="noteShow('2')">获赠与赠送</div>
+								<div style="font-size: 12px;overflow: hidden;text-indent:0;text-align:center" onclick="noteShow('3')">总收益</div>
+								<div style="font-size: 12px;overflow: hidden;text-indent:0;text-align:center" onclick="noteShow('4')">提现</div>
+								<div style="font-size: 12px;overflow: hidden;text-indent:0;text-align:center" onclick="noteShow('5')">兑换</div>
+							</div>
+						<div id="goumai">
+							<div class="title">
+						    <span>ID</span>
+						    <span style="width:25%">来源</span>
+						    <span style="width:25%">莲蓬/莲藕</span>
+						    <span style="width:30%">时间</span>
+							</div>
+							<volist name="he.distribution_log" id="vo" empty="没有收入记录">
+								<div class="content">
+								    <if condition="$vo['type'] eq 1">
+								    	<span>{$he.user.id}</span>
+								    	<span style="width:25%">静态收入</span>
+									<else />
+										<span>{$vo.uid}</span>
+										<span style="width:25%">{$vo.uid|get_user_name}</span>
+								    </if>
+								    <span style="width:25%">{$vo.peng}/{$vo.lotus}</span>
+								    <span style="width:30%;text-align: center;">{$vo.add_time|date="m-d H:i:s",###}</span>
+								</div>
+							</volist>
+						</div>
+						<div id="zensong" style="display: none">
+							<volist name="he.give" id="v" empty="没有赠送记录">
+							<table border="1" style="margin: 10px auto 0px;">
+								<tr>
+									<td>获赠方昵称：</td>
+									<td>{$v.others_id|get_user_name}</td>
+								</tr>
+								<tr>
+									<td>获赠方ID：</td>
+									<td>{$v.others_id}</td>
+								</tr>
+								<tr>
+									<td>赠送数量：</td>
+									<td>{$v.number}</td>
+								</tr>
+								<tr>
+									<td>赠送时间：</td>
+									<td>{$v.add_time||date='Y-m-d H:i',###}</td>
+								</tr>
+							</table>
+							</volist>
+							<volist name="he.received" id="v">
+							<table border="1" style="margin: 10px auto 0px;">
+								<tr>
+									<td>赠送方昵称：</td>
+									<td>{$v.uid|get_user_name}</td>
+								</tr>								
+								<tr>
+									<td>赠送方ID：</td>
+									<td>{$v.uid}</td>
+								</tr>
+								<tr>
+									<td>获赠数量：</td>
+									<td>{$v.number}</td>
+								</tr>
+								<tr>
+									<td>赠送时间：</td>
+									<td>{$v.add_time||date='Y-m-d H:i',###}</td>
+								</tr>
+							</table>
+							</volist>
+						</div>
+						<div id="duihuan" style="display: none">
+							<table border="1" style="margin: 10px auto 0px;text-align: center;">
+								<tr>
+									<td>莲藕静态总收入</td>
+									<td>{$he.income_static}</td>
+								</tr>
+								<tr>
+									<td>莲藕动态总收入</td>
+									<td>{$he.income_active}</td>
+								</tr>
+								<tr>
+									<td>莲蓬静态总收入</td>
+									<td>{$he.income1_static}</td>
+								</tr>							
+								<tr>
+									<td>莲蓬动态总收入</td>
+									<td>{$he.income1_active}</td>
+								</tr>
+							</table>
+<!-- 							<volist name="he.exchange" id="v" empty="没有兑换记录">
+							<table border="1" style="margin: 10px auto 0px;">
+								<tr>
+									<td>兑换莲藕数</td>
+									<td>{$v.number}</td>
+								</tr>
+								<tr>
+									<td>兑换莲蓬数</td>
+									<td>{$v.number1}</td>
+								</tr>
+								<tr>
+									<td>兑换时间</td>
+									<td>{$v.add_time||date='Y-m-d H:i',###}</td>
+								</tr>
+							</table>
+							</volist> -->
+						</div>
+						<div id="tixian" style="display:none;">
+							<volist name="he.tixian" id="v" empty="没有提现记录">
+							<table border="1" style="margin: 10px auto 0px;">
+								<tr>
+									<td>提现金额：</td>
+									<td>{$v.lotus}莲藕</td>
+								</tr>
+								<tr>
+									<td>时间：</td>
+									<td>{$v.add_time||date='Y-m-d H:i',###}</td>
+								</tr>
+								<tr>
+									<td>状态：</td>
+									<td><if condition="$v['type'] eq 0"><span style="color:red;">待处理</span><else/><span style="color:green;">已完成</span></if></td>
+								</tr>
+							</table>
+							</volist>
+						</div>
+						<div id="huanwu" style="display:none;">
+							<volist name="he.huanwu" id="v" empty="没有兑换记录">
+							<table border="1" style="margin: 10px auto 0px;">
+								<tr>
+									<td style="width:40%;">商品名称：</td>
+									<td>{$v.goods_id|get_seedling}</td>
+								</tr>
+								<tr>
+									<td>兑换数量：</td>
+									<td>{$v.num}个</td>
+								</tr>								
+								<tr>
+									<td>兑换时间：</td>
+									<td>{$v.add_time||date='Y-m-d H:i',###}</td>
+								</tr>
+								<tr>
+									<td>兑换状态：</td>
+									<td>
+									<if condition="$v['status'] eq 0">
+									<span style="color:red;">未处理</span>
+									<elseif condition="$v['status'] eq 1"/>
+									<span style="color:#00A2EA">待处理</span>
+									<else />
+									<span style="color:green;">已完成</span>
+									</if></td>
+								</tr>
+							</table>
+							</volist>
+						</div>
+						</div>
+				</div>
+			</div>
+
+        <!--客服弹窗-->
+			<div class="window_shadow" id="mykf" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('mykf')"></div>
+						<div class="message">				
+							<h1>联系客服</h1>
+							<img class="ewmtp" src="{$he.config_3}" />
+							<p>客服微信：<textarea id="wx_num">{$he.config_1}</textarea></p>
+							<p>客服微信：<textarea id="wx_num2">{$he.config_2}</textarea></p>
+							<button  onclick="jsCopy();" class="copybtn"></button>
+						</div>
+				</div>
+			</div>
+
+		<!-- 兑换窗口 -->
+			<div class="window_shadow" id="exchange" >
+				<div class="exchange_window">
+				<form action="" method="" id="exchange_form">
+					<p class="content_item_tittle"><span class="item_1">莲藕</span><span>莲蓬</span></p>
+					<p class="content_item_num"><input type="text" name="" disabled="disabled" class="input_1" value="{$he.user.lotus}"> <input type="text" name="" disabled="disabled" value="{$he.user.peng}"></p>
+					<p class="content_item_num" id="number">
+						<span class="item_num_1">兑换数量</span>
+
+						<input type="number" id="lotus" class="input_1" placeholder="请输入兑换数量" onchange="changeNum('1')">
+
+						<input type="number" id="peng"  placeholder="请输入兑换数量" onchange="changeNum('2')">
+					</p>
+
+					<p class="content_item_num">
+						<span class="item_num_1">积分数量</span>
+						<input type="text" name="" disabled="disabled" class="input_1" value="0" id="dNum_1"> 
+						<input type="text" name="" disabled="disabled" value="0"  id="dNum_2">
+					</p>
+
+					<p class="content_item_num"><span class="item_num_2">注：1莲藕=10积分</span> 1莲蓬=10积分</p>
+					<div class="queding" id="dh"></div>
+					<div class="quxiao" onclick="tohidden('exchange')"></div>
+				</form>
+				</div>
+			</div>
+        <!--开发新好友-->
+			<div class="window_shadow" id="develop">
+				<div class="develop_window">
+				<form action="" method="" id="develop_form">
+					<div class="your_friend" style="margin-top: 50px;">
+					<span class="your_friend_reg">推荐人：</span><input value="{$he.user.id}/{$he.user.name}" disabled="" type="text"></div>
+					<div class="your_friend" style="margin-top: 0px;">
+					<span class="your_friend_reg">注册人昵称</span><input type="text" name="reg_name3" ></div>
+					<div class="your_friend" style="margin-top: 0px;">
+					<span class="your_friend_reg">注册用户手机</span><input type="text" name="reg_tel3" ></div>
+					<div class="your_friend" style="margin-top: 0px;">
+					<span class="your_friend_reg">密码：</span><input type="password" name="reg_pass" id="put_num3"></div>
+					<div class="your_friend" style="margin-top: 0px;">
+					<span class="your_friend_reg">确认密码:</span><input name="reg_pass2" type="password" id="psw3" >
+					</div>
+					<div class="yaoqing" id="yaoqing"></div>
+					<div class="quxiao" onclick="tohidden('develop')"></div>
+				</form>
+				</div>
+			</div>
+
+		<!-- 赠送窗口 -->
+			<div class="window_shadow" id="gift">
+				<div class="gift_window">
+				<form action="" method="" id="gift_form">
+					<div class="your_friend" style="margin-top: 44px;">
+					<span class="your_friend_id">可用莲藕：</span>{$he.user.lotus}<br>
+					<span class="your_friend_id">管控系数：</span>{$gkxs}<br>
+					<span class="your_friend_id">对方ID：</span><input class="uid" type="text" name="" ><span class="msg1" style="color: red;display: none;">&nbsp;请填写</span><br>
+					<span class="your_friend_num">数&nbsp;&nbsp;量：</span><input class="num" type="number" name="" id="put_num"><br/>
+					<span class="your_friend_psw">二级密码:</span><input class="num" type="password" id="psw2" ><br/>
+					<span class="your_friend_psw">验证码：</span><input class="smsinput" type="number" id="smsinput" style="width:100px;"><input style="width: 65px;padding: 0" type="button" value="获取验证码" class="hqyzm">
+					<span class="your_friend_psw real_num">手续费:10%</span>
+					<span class="">实际消耗数量:<span id="real_num">0</span></span>
+					</div>
+					<div class="queding" id="queding"></div>
+					<div class="quxiao" onclick="tohidden('gift')"></div>
+				</form>
+				</div>
+			</div>
+
+		<!-- 增苗窗口 -->
+			<div class="window_shadow" id="add_lotus">
+				<div class="add_lotus_window">
+				<form action="" method="" id="add_lotus_form">
+
+					<div class="your_friend">
+					<span class="your_friend_id">可种莲藕：</span>{$he.user.lotus}<br><br>
+					<!-- <span class="your_friend_id">对方ID：</span><input class="uid" type="text" name="" ><span class="msg1" style="color: red;display: none;">&nbsp;请填写</span><br> -->
+					<span class="your_friend_id">种植数量：</span><input class="num" type="number" name="" id="add_lotus_num" value="">
+					<!-- <span class="your_friend_psw">二级密码:</span><input class="num" type="password" id="psw2" > -->
+					</div>
+					<input type="hidden" name="lotus_id" id="add_lotus_id">
+
+					
+					<div class="queding" onclick="add_lotus()"></div>
+					<div class="quxiao" onclick="tohidden('add_lotus')"></div>
+				</form>
+				</div>
+			</div>
+
+		<!-- 提现窗口 -->
+			<div class="window_shadow" id="get_money" style="z-index:23">
+				<div class="get_money_window">
+				<form action="" method="" id="get_money_form">
+					<div class="your_friend">
+					<span class="your_friend_id">可用莲藕:</span><span id="money_use">{$he.user.lotus}</span><br><br>
+					<span class="your_friend_id" style="letter-spacing: 6px;">支付宝:</span><input class="uid" type="text" name="" id="get_pay"><br>
+					<span class="your_friend_num" style="letter-spacing: 6px;">姓&nbsp;&nbsp;名:</span><input class="num" type="text" id="get_name" ><br>
+					<span class="your_friend_psw">提现数量:</span><input class="num" value="200" disabled="" type="number" name="" id="get_num">
+					</div>
+
+					<div class="queding" onclick="get_money()"></div>
+					<div class="quxiao" onclick="tohidden('get_money')"></div>
+				</form>
+				</div>
+			</div>
+        <!--话费充值-->
+			<div class="window_shadow" id="telephone_fare" style="z-index:23">
+				<div class="telephone_fare_window">
+				<form action="" method="" id="telephone_fare_form">
+					<div class="your_friend">
+					<span class="your_friend_id">可用莲藕:</span><span id="fare_use">{$he.user.lotus}</span><br><br>
+					<span class="your_friend_num" style="letter-spacing: 6px;">姓&nbsp;&nbsp;名:</span><input class="num" type="text" id="fare_name" ><br>
+					<span class="your_friend_id" style="letter-spacing: 6px;">手机号:</span><input class="uid" type="text" name="" id="fare_tel"><br>
+					<span class="your_friend_psw">充值话费:</span><input class="num" value="200" disabled="" type="number" name="" id="fare_num">
+					</div>
+					<div class="queding" onclick="telephone_fare()"></div>
+					<div class="quxiao" onclick="tohidden('telephone_fare')"></div>
+				</form>
+				</div>
+			</div>
+
+		<!-- 小卖部 -->
+		<div class="window_shadow" id="canteen">
+				<div class="canteen_window">
+					<div class="x_png" onclick="tohidden('canteen')"></div>
+					<div class="clicktab2">
+                        <div onclick="clicktab_son1()" class="tab_son12 tab_son1"></div>
+                        <div onclick="clicktab_son2()" class="tab_son2"></div>
+					</div>
+				<form action="" method="" id="canteen_form" class="canteen">
+				<div class="tab1">
+					<div class="canteen_lotus_bg_1 canteen_lotus_bg">
+					    <div class="fourleft"><img src="__PUBLIC__image/300.png"/></div>
+					    <div class="fourright">
+					        <div class="title">绿色荷花(300莲藕)</div>
+					        <div class="title2">作为游戏的基本种植植物，可种植</div>
+					        <div class="title3">数量：9999</div>
+					        <div class="tnum">
+						        <div class="jian" onclick="cut(this)"></div>
+                      			<div class="item_count" id="num_1">1</div>
+						        <div class="jia" onclick="add(this)"></div>
+					        </div>
+						    <div class="duihuan duihuan1" data="1"></div>
+					    </div>
+					</div>
+					<div class="canteen_lotus_bg_10 canteen_lotus_bg">
+					    <div class="fourleft"><img src="__PUBLIC__image/3000.png"/></div>
+					    <div class="fourright">
+					        <div class="title">金色荷花(3000莲藕)</div>
+					        <div class="title2">作为游戏的基本种植植物，可种植</div>
+					        <div class="title3">数量：9999</div>
+					        <div class="tnum">
+						        <div class="item_count" id="num_10">1</div>
+						        <div class="jian" onclick="cut(this)"></div>
+						        <div class="jia" onclick="add(this)"></div>
+						    </div>
+						    <div class="duihuan duihuan1" data="10"></div>
+						</div>
+					</div>
+					<div class="canteen_lotus_bg_1 canteen_lotus_bg">
+					    <div class="fourleft"><img style="width:210px;height:160px;" src="__PUBLIC__image/tx.jpg"/></div>
+					    <div class="fourright">
+					        <div class="title">200元话费</div>
+					        <div class="title2">莲藕话费充值200，请准确填写姓名和手机号，错误自担！48-72小时到账（如充值200，实际消耗莲藕240）</div>
+					        <div class="title3"></div>
+						    <div onclick="toshow('telephone_fare')" class="duihuan"></div>
+					    </div>
+					</div>
+					<div class="canteen_lotus_bg_1 canteen_lotus_bg">
+					    <div class="fourleft"><img style="width:210px;height:160px;" src="__PUBLIC__image/tx.jpg"/></div>
+					    <div class="fourright">
+					        <div class="title">支付宝提现</div>
+					        <div class="title2">莲藕支付宝提现200，请准确填写姓名和支付宝账号，错误自担！48-72小时到账（如提现200，实际消耗莲藕240）</div>
+					        <div class="title3"></div>
+<!-- 					        <div class="tnum">
+						        <div class="jian" onclick="cut(this)"></div>
+                      			<div class="item_count" id="num_1">1</div>
+						        <div class="jia" onclick="add(this)"></div>
+					        </div> -->
+						    <div onclick="toshow('get_money')" class="duihuan"></div>
+					    </div>
+					</div>
+				</div>
+
+
+			<!-- 兑换实物商品列表循环 -->
+				<div class="tab2" style="display:none;">
+					<volist name="he.goods_list" id="vo">
+					<div class="canteen_lotus_bg">
+					<div class="fourleft"><img class="good_img" src="{$vo.img}" ></div>
+					<div class="fourright">
+					    <div class="title">{$vo.name}</div>
+					    <div class="title2">{$vo.conment}</div>
+					    <div class="title3">库存：{$vo.num}</div>
+		<!-- 			    <div class="tnum">
+						     <div class="item_count" >1</div>
+						     <div class="jian" onclick="cut(this)"></div>
+						     <div class="jia" onclick="add(this)"></div>
+						</div> -->
+						<div class="duihuan duihuan2" data-price="{$vo.price}" data-id="{$vo.id}"></div>
+					</div>
+					</div>
+					</volist>
+                </div>
+<!-- 兑换订单 -->		
+            <div class="window_shadow" id="ddtc" style="display: none;">
+				<div class="buy_window" style="width:457px;margin-left:-228px;">
+					<div class="x_png" onclick="tohidden('ddtc')"></div>
+						<div class="message formddtc">				
+							<h1>提交订单</h1>
+						<!--     <div class="gmimg"><img src="http://htys2.jimohu.com/Public/Game/image/mykf.jpg" /><div class="title">萝卜白菜(2000莲藕)</div></div> -->
+                      
+                            	<input type="hidden" id="gm_price" >
+                            	<input type="hidden" id="gm_goods_id" >
+                               <p>兑换数量：<input type="text" value='1' id="gm_num" /></p>
+                               <p>地址：<input type="text" placeholder="请填入收货地址"  id="gm_add" /></p>
+                               <p>联系人：<input type="text" placeholder="请填入联系人姓名"   id="gm_contacts"/></p>
+                               <p>电话：<input type="number" placeholder="请填入联系电话" value=''  id="gm_tel"/></p>
+                               <p>备注：<input type="text" placeholder="备注"  id="gm_remarks" /></p>
+                               <div class="tittop">购买产品扣除10%的手续费</div>
+                               <div>支付总金额：<text id="gm_total"></text>莲蓬</div>
+                               <div class="button" onclick="gm_submit()"></div>
+                          
+
+						</div>
+				</div>
+			</div>		
+               <!-- <div class="canteen_lotus_bg_2 canteen_lotus_bg">
+						<div class="item_count" id="num_2">1</div>
+						<div class="jian" onclick="cut('2')"></div>
+						<div class="jia" onclick="add('2')"></div>
+						<div class="duihuan" data="2"></div>
+					</div>
+
+					<div class="canteen_lotus_bg_3 canteen_lotus_bg">
+						<div class="item_count" id="num_3">1</div>
+						<div class="jian" onclick="cut('3')"></div>
+						<div class="jia" onclick="add('3')"></div>
+						<div class="duihuan" data="3"></div>
+					</div> -->
+
+				
+
+
+				</form>
+				</div>
+			</div>
+
+			<!-- 池塘荷花 -->
+
+			<volist name="he.generate" id="vo" >
+
+			<div class="{:$vo['hid']==1?'index_pond_lotus':'index_pond_lotus_jin'} index_lotus_{$key+1} index_pond_lotus_click">
+					<if condition="$vo['lotus'] neq 0">
+			        <button class="qp_logo" data-id="{$vo.id}"></button>
+			        </if>
+					<p class="life" style="display: none; color: #ffffff; line-height: 20px; text-align: center;background: #f38914;z-index: 9999">
+					<span>莲藕总数：{:$vo['price']+$vo['zeng_lotus_new']+$vo['zeng_lotus_old']}<br/></span>
+					<span>今日产藕:{$vo.lotus_b}<br/></span>
+					<span>今日产蓬:{$vo.peng_b}<br/></span>
+					</p>
+			</div>
+			<!-- <div class="clear_shovel_{$key+1} clear_shovel_all" onclick="removeLotus({$vo.id},{$key+1},{$vo.start_time|get_life})"></div> -->
+			<div class="pick_shovel_{$key+1} pick_shovel_all" onclick="pickLotus({$vo.id},{$key+1},{$vo.start_time|get_life})" style="display: none"></div>
+			<!-- 增苗荷花 -->
+			<div class="zeng_shovel_{$key+1} zeng_shovel_all" onclick="toshow('add_lotus',{$vo.id})" style="display: none"></div>
+			</volist>
+
+			<!-- 池塘莲藕 -->
+<!-- 			<div class="index_pound_lotus_new">
+				<p class="mylife">
+				<span>{$he.lotus_count}</span>
+				</p>
+			</div>
+ -->
+			<!-- 清除荷花窗口 -->
+			<div class="window_shadow" id="clear_lotus" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('clear')"></div>
+						<div class="message">
+							<p class="text" id="texthtml">是否铲除此荷花?</p>
+							<div class="no" onclick="tohidden('clear')" id="no">取消</div>
+							<div class="yes" onclick="cleara()" id="yes">确定</div>
+						</div>
+				</div>
+			</div>
+
+			<div class="window_shadow" id="pick_lotus" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('pick')"></div>
+						<div class="message">
+							<p class="text" id="texthtml3">是否收获荷花?</p>
+							<div class="no" onclick="tohidden('pick')" id="no">取消</div>
+							<div class="yes" onclick="picka()" id="yes">确定</div>
+						</div>
+				</div>
+			</div>
+
+			<div class="window_shadow" id="member_active" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('member_active')"></div>
+						<div class="message">
+							<p class="text" id="texthtml4">激活用户将会消耗330莲藕，确定要激活吗?</p>
+							<div class="no" onclick="tohidden('member_active')" >取消</div>
+							<button class="yes" id="xhyes" onclick="member_active()" >确定</button>
+						</div>
+				</div>
+			</div>
+			<div class="window_shadow" id="member_active2" >
+				<div class="buy_window">
+					<div class="x_png" onclick="tohidden('member_active2')"></div>
+						<div class="message">
+							<p class="text" id="texthtml4">激活用户将会消耗330莲藕，确定要激活下级吗?</p>
+							<div class="no" onclick="tohidden('member_active2')" >取消</div>
+							<button class="yes" id="xhyes" onclick="member_active2()" >确定</button>
+						</div>
+				</div>
+			</div>
+			<input type="hidden" name="member_active_id2" value="" id="member_active_id2">
+			<input type="hidden" name="member_active_id" value="" id="member_active_id">
+			<input type="hidden" name="hidden" id="hidden" value="">
+			<input type="hidden" name="hidden2" id="hidden2" value="">
+			<input type="hidden" name="hidden3" id="hidden3" value="">
+
+
+			<!-- 游戏设置窗口 -->
+		</div>
+	</body>
+	</html>
+	<script type="text/javascript">
+    function jsCopy(){   
+        var e=document.getElementById("wx_num");//对象是contents 
+        var c=document.getElementById('mykf');  
+        e.select(); //选择对象   
+        tag=document.execCommand("Copy"); //执行浏览器复制命令  
+        if(tag){  
+          alert('复制内容成功'); 
+          c.style.display="none"; 
+        }else{
+          alert('复制失败,请手动复制');
+        }
+    } 
+</script>
+
+<!-- 			<div class="window_shadow" id="public_shadow" style="display: block">
+				<div class="buy_window">
+					<div class="x_png publicCancel" ></div>
+						<div class="message">
+							<p class="text" id="publickHtml">成功收获莲藕999?</p>
+							<div id="yes_btn" style="right: 50%;width: 128px;margin-right: -64px;">确定</div>
+						</div>
+				</div>
+			</div>
+ -->
+
+<script type="text/javascript">
+
+// 封装一个方法，用于弹窗使用。
+var myObject={};
+
+myObject.publicConfirm=function(text,opts){
+        var $dom = $('' +
+            '<div class="window_shadow" id="public_shadow" style="display:block">' +
+            '   <div class="buy_window">' +
+            '<div class="x_png publicCancel" ></div>'+
+            '<div class="message">'+
+            '       <p class="text" id="publickHtml">' + text + '</p>' +
+            '       <div class="no publicCancel" >取消</div>' +
+            '       <div class="yes" id="yes_btn">确定</div>' +
+            '	</div>'+
+            '   </div>' +
+            '</div>');
+    $(window.document.body).append($dom);
+	if (typeof opts === 'function') {
+	$("#yes_btn").bind("click" , function () {
+	 	opts();
+	 });
+	$(".publicCancel").bind("click" , function () {
+	 	$dom.remove();
+	 });
+	}
+}
+
+myObject.publicAlert=function(text){
+        var $dom = $('' +
+            '<div class="window_shadow" id="public_shadow" style="display:block">' +
+            '   <div class="buy_window">' +
+            '<div class="x_png publicCancel" ></div>'+
+            '<div class="message">'+
+            '       <p class="text" id="publickHtml">' + text + '</p>' +
+            '       <div  class="yes publicCancel"  style="right: 50%;width: 128px;margin-right: -64px;">确定</div>' +
+            '	</div>'+
+            '   </div>' +
+            '</div>');
+    $(window.document.body).append($dom);
+	$(".publicCancel").bind("click" , function () {
+	 	$dom.remove();
+	 });
+	
+}
+
+
+	$(function(){
+		$(".duihuan1").click(function(){
+			var _this = $(this),id,num;
+			id = _this.attr("data");
+			num = _this.siblings(".tnum").children().text();
+			myObject.publicConfirm('确定要购买荷花吗？',function(){
+				$.post("{:U('generate')}",{id:id,num:num},function(data){
+					alert(data.info);
+					window.location.reload();
+				});
+			})
+		});
+	})
+
+
+	//兑换、、
+	$(function(){
+		$(".duihuan2").click(function(){
+			var price = $(this).attr("data-price");
+			var id = $(this).attr("data-id");
+			$('#gm_price').val(parseInt(price));
+			$('#gm_goods_id').val(id);
+			var total = parseInt(price) + parseInt(price)/10;
+			$('#gm_total').text(parseInt(total));
+            $('#ddtc').show();
+		});
+	})
+
+	// 算出总价
+	$("#gm_num").blur(function(){
+		var num = $('#gm_num').val();
+		var price = $('#gm_price').val();
+		var total = num *price;
+		total = total+total/10; 
+		$('#gm_total').text(total);
+
+	});
+
+
+	// 实际消耗数量
+	$("#put_num").blur(function(){
+		var num = parseInt($('#put_num').val());
+
+		var real = num + num/10;
+		$('#real_num').text(real);
+
+	});
+
+	//实物兑换，向后台递交数据
+	function gm_submit(){
+		var goods_id = $('#gm_goods_id').val()
+		var gm_add = $('#gm_add').val();
+		var gm_num = $('#gm_num').val();
+		var gm_tel = $('#gm_tel').val();
+		var gm_contacts = $('#gm_contacts').val();
+		var gm_remarks = $('#gm_remarks').val();
+		if(gm_num<0){
+			alert('兑换数量必须大于0');
+			return;      
+		}
+		if(!gm_add||!gm_num||!gm_tel||!gm_contacts||!gm_remarks){
+			alert('请填写完整信息');
+			return;
+		}
+
+		$.post("{:U('goods_exchange')}",{goods_id:goods_id,num:gm_num,address:gm_add,telephone:gm_tel,contacts:gm_contacts,remarks:gm_remarks},function(data){
+			alert(data.info);
+			// window.location.reload();
+		});
+
+	}
+
+	$(function(){
+
+		$(".index_pond_lotus_click").click(function(){
+			// $(".index_pond_lotus").find(".life").toggle();
+			$(this).find(".life").toggle();
+			$(this).siblings().find('.life').hide();
+
+		});
+		$(".qp_logo").click(function(event){
+			var id = $(this).attr('data-id');
+			$.post("{:U('pickLotus')}",{id:id},function(data){
+				if(data.status == '1'){
+					myObject.publicAlert('成功收取莲藕:'+data.lotus+'莲蓬:'+data.peng);
+					setTimeout(function(){
+						window.location.reload();
+					},1000);
+				$(this).hide();
+				event.stopPropagation();
+				}else{
+					myObject.publicAlert(data.info);
+				}
+			});
+
+		});
+	});
+
+	function changeNum(e){
+		if(e==1){
+			var val = $('#lotus').val();
+			$('#dNum_1').val(val*10);
+		}else if(e ==2){
+			var val = $('#peng').val();
+			$('#dNum_2').val(val*10);
+		}
+	}
+
+
+	function toggleClear(){
+		// $('.index_top_2').css('background-image','url(__PUBLIC__image/dark_clear.png)');
+		$('.clear_shovel_all').toggle('slow');
+	}
+
+	function togglePick(){
+		// $('.index_top_2').css('background-image','url(__PUBLIC__image/dark_clear.png)');
+		$('.pick_shovel_all').toggle('slow');
+	}
+
+	function toggleAdd(){
+		$('.zeng_shovel_all').toggle('slow');
+	}
+
+
+
+
+	$("#dh").click(function(){
+		var lotus = $(this).siblings("#number").find("#lotus").val();
+		var peng = $(this).siblings("#number").find("#peng").val();
+		if(lotus <= 0 && peng <= 0){
+			alert('填写格式错误');
+			return false;
+		}
+		$.post("{:U('exchange')}",{lotus:lotus,peng:peng},function(data){
+			if(data.status == 'y'){
+				alert('兑换成功');
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+			}else{
+				alert(data.info);
+			}
+		});
+	});
+
+
+	function add(that){
+		var _this = $(that);
+		var num = _this.siblings(".item_count").text();
+		num++;
+		_this.siblings(".item_count").text(num);
+	}
+	function cut(that){
+		var _this = $(that);
+		var num = _this.siblings(".item_count").text();
+		num--;
+		if(num<0){
+			_this.siblings(".item_count").text(0);
+		}else{
+			_this.siblings(".item_count").text(num);
+		}
+		
+	}
+
+
+
+	function tohidden(e){
+		if(e=="junior"){
+			$('#junior').hide();
+		}else if(e=="middle"){
+			$('#middle').hide();
+		}else if(e=="high"){
+			$('#high').hide();
+		}else if(e=="supreme"){
+			$('#supreme').hide();
+		}else if(e=="buy"){
+			$('#buy_confirm').hide();
+		}else if(e=="rule"){
+			$('.index_left_1').css('background-image','url(__PUBLIC__image/index_left_1.png)');
+			$('#rule').hide();
+		}else if(e=="mybag"){
+			$('.index_top_4').css('background-image','url(__PUBLIC__image/index_top_4.png)');
+			$('#mybag').hide();
+		}else if(e=="infocenter"){
+			$('.index_top_7').css('background-image','url(__PUBLIC__image/index_top_7.png)');
+			$('#infocenter').hide();
+		}else if(e=="notes"){
+			$('.index_top_5').css('background-image','url(__PUBLIC__image/index_top_5.png)');
+			$('#notes').hide();
+		}else if(e=="exchange"){
+			$('.index_top_9').css('background-image','url(__PUBLIC__image/index_top_9.png)');
+			$('#exchange').hide();
+		}else if(e=="gift"){
+			$('.index_top_8').css('background-image','url(__PUBLIC__image/index_top_8.png)');
+			$('#gift').hide();
+		}else if(e=="develop"){
+			$('#develop').hide();
+		}else if(e=="canteen"){
+			$('.index_left_3').css('background-image','url(__PUBLIC__image/index_left_3.png)');
+			$('#canteen').hide();
+		}else if(e=="clear"){
+			$('.index_top_2').css('background-image','url(__PUBLIC__image/index_top_2.png)');
+			$('#clear_lotus').hide();
+		}else if(e=="pick"){
+			$('#pick_lotus').hide();
+		}else if(e=="member_active"){
+			$('#member_active').hide();
+		}else if(e=="member_active2"){
+			$('#member_active2').hide();
+		}else if(e=="help"){
+			$('.index_left_2').css('background-image','url(__PUBLIC__image/index_left_2.png)');
+			$('#help').hide();
+		}else if(e=="myteam"){
+			$('#myteam').hide();
+		}else if(e=="twopass"){
+			$('#twopass').hide();
+		}else if(e=="shiming"){
+			$('#shiming').hide();
+		}else if(e=="add_lotus"){
+			$('#add_lotus').hide();
+		}else if(e=="get_money"){
+			$('#get_money').hide();
+		}else if(e=="telephone_fare"){
+			$('#telephone_fare').hide();
+		}else if(e=="mykf"){
+			$("#mykf").hide();
+		}else if(e='ddtc'){
+			$('#ddtc').hide();
+		}
+	}
+	function toshow(e,id){
+		if(e=="junior"){
+			$('#junior').show('slow');
+		}else if(e=="middle"){
+			$('#middle').show('slow');
+		}else if(e=="high"){
+			$('#high').show('slow');
+		}else if(e=="supreme"){
+			$('#supreme').show('slow');
+		}else if(e=="rule"){
+			$('.index_left_1').css('background-image','url(__PUBLIC__image/dark_rule.png)');
+			$('#rule').show('slow');
+		}else if(e=="mybag"){
+			$('.index_top_4').css('background-image','url(__PUBLIC__image/dark_mybag.png)');
+			$('#mybag').show('slow');
+		}else if(e=="infocenter"){
+			$('.index_top_7').css('background-image','url(__PUBLIC__image/dark_index_top_7.png)');
+			$('#infocenter').show('slow');
+		}else if(e=="notes"){
+			$('.index_top_5').css('background-image','url(__PUBLIC__image/dark_index_top_5.png)');
+			$('#notes').show('slow');
+		}else if(e=="exchange"){
+			$('.index_top_9').css('background-image','url(__PUBLIC__image/dark_index_top_9.png)');
+			$('#exchange').show('slow');
+		}else if(e=="gift"){
+			$('.index_top_8').css('background-image','url(__PUBLIC__image/dark_index_top_8.png)');
+			$('#gift').show('slow');
+		}else if(e=="develop"){
+			$('#develop').show('slow');
+		}else if(e=="canteen"){
+			$('.index_left_3').css('background-image','url(__PUBLIC__image/dark_store.png)');
+			$('#canteen').show('slow');
+		}else if(e=="help"){
+			$('.index_left_2').css('background-image','url(__PUBLIC__image/dark_help.png)');
+			$('#help').show('slow');
+		}else if(e=="myteam"){
+			$('#myteam').show('slow');
+		}else if(e=="twopass"){
+			$('#twopass').show('slow');
+		}else if(e=="shiming"){
+			$('#shiming').show();
+		}else if(e=='member_active'){
+			$('#member_active').show('slow');
+			$('#member_active_id2').val(id);
+		}else if(e=='member_active2'){
+			$('#member_active2').show('slow');
+			$('#member_active_id').val(id);
+		}else if(e=='add_lotus'){
+			$('#add_lotus').show('slow');
+			$('#add_lotus_id').val(id);
+		}else if(e=="get_money"){
+			$('#get_money').show('slow');
+		}else if(e=="telephone_fare"){
+			$('#telephone_fare').show('slow');
+		}else if(e=="mykf"){
+			$('#mykf').show('slow');
+		}
+	}
+	function buyLotus(e){
+		$('#buy_confirm').show();
+		$('#hidden').val(e);
+		$('#texthtml').text("是否确定购买此商品?");
+
+	}
+	function buy(){
+		var e =$('#hidden').val();
+		console.log(e);
+		if(e != null){
+			$.post("{:U('generate')}",{hid:e},function(data){
+				// alert(data.info);
+				$('#yes').hide();
+				$('#no').hide();
+				$('#texthtml').text(data.info);
+				setTimeout(function(){
+					// window.location.reload();
+					$('#buy_confirm').hide()
+				},1000);
+				//初始化页面数据
+				$('#yes').show();
+				$('#no').show();			
+				$('#hidden').val('');
+			});
+		}
+	}
+
+	function removeLotus(e,a,b){
+		//e用来存放荷花id，a用来存放荷花排序数值。		
+		$('#clear_lotus').show();
+		$('#hidden').val(e);
+		$('#hidden2').val(a);
+		$('#hidden3').val(b);
+		//初始化数据
+		$('#yes').show();
+		$('#no').show();
+		$('#texthtml').text("是否铲除此荷花?");
+	}
+
+	function pickLotus(e,a,b){
+		//e用来存放荷花id，a用来存放荷花排序数值。	
+		$('#pick_lotus').show();
+		$('#hidden').val(e);
+		$('#hidden2').val(a);
+		$('#hidden3').val(b);
+		//初始化数据
+		$('#yes').show();
+		$('#no').show();
+		$('#texthtml3').text("是否收获荷花?");	
+	}
+
+
+
+	function cleara(){
+		var e = $('#hidden').val();
+		var a = $('#hidden2').val();
+		var b = $('#hidden3').val();
+		$.post("{:U('clearLotus')}",{id:e},function(data){
+			$(".text").text(data.info);
+			setTimeout(function(){
+				$(".window_shadow").hide();
+				$(".text").text("是否铲除此荷花?");
+			},2000);
+			setTimeout(function(){
+				window.location.reload();
+			},1000);
+		});
+		// 初始化页面数据
+		$('.clear_shovel_all').hide();
+		$('#hidden').val('');
+		$('#hidden2').val('');
+	}
+
+	function picka(){
+		var e = $('#hidden').val();
+		var a = $('#hidden2').val();
+		var b = $('#hidden3').val();
+		$.post("{:U('cutLotus')}",{id:e},function(data){
+			$(".text").text(data.info);
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+		});
+		// 初始化页面数据
+		$('.clear_shovel_all').hide();
+		$('#hidden').val('');
+		$('#hidden2').val('');
+	}
+
+	function member_active(){
+		var id = $('#member_active_id2').val();
+		$('.yes').attr('disabled','disabled');
+		$.post("{:U('member_active')}",{id:id},function(data){
+				$("#texthtml4").text(data.info);
+				if(data.status == 'y'){
+					setTimeout(function(){
+						window.location.reload();
+					},1000);
+				}else if(data.status == 'n'){
+			        $('#member_active').hide();
+				}
+		});
+	}
+	function member_active2(){
+		var id = $('#member_active_id').val();
+		$('.yes').attr('disabled','disabled');
+		$.post("{:U('member_active2')}",{id:id},function(data){
+				$("#texthtml4").text(data.info);
+				if(data.status == 'y'){
+					setTimeout(function(){
+						window.location.reload();
+					},1000);
+				}else if(data.status == 'n'){
+			        $('#member_active').hide();
+				}
+		});
+	}
+	//邀请好友
+	$("#yaoqing").click(function(){
+		var username = $(this).siblings(".your_friend").find("input[name='reg_tel3']").val();
+		var password = $(this).siblings(".your_friend").find("input[name='reg_pass']").val();
+		var password2 = $(this).siblings(".your_friend").find("input[name='reg_pass2']").val();
+		var name= $(this).siblings(".your_friend").find("input[name='reg_name3']").val();
+		if(password!==password2){
+			alert('密码输入不一致，请重新填写');
+			return;
+		}
+		if(username && password){
+			$.post("{:U('yaoqing')}",{name:name,password:password,username:username},function(data){
+				if(data.status == 'y'){
+					alert('注册成功');
+					$("#develop").hide();
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}
+				
+			});
+		}else{
+			alert('请填写完整');
+		}
+	});
+    //赠送
+	$("#queding").click(function(){
+		var uid = $(this).siblings(".your_friend").find(".uid").val();
+		var num = $(this).siblings(".your_friend").find(".num").val();
+		var psw2 = $(this).siblings(".your_friend").find("#psw2").val();
+		var code = $(this).siblings(".your_friend").find("#smsinput").val();		
+        //赠送后系数
+        var cc=({$zongli})/({$zongshu}-(num*0.9));
+        var cc2=cc.toFixed(3);
+        console.log({$gkxs});
+        console.log(cc2);
+		if({$gkxs}>3){
+            alert('管控系数大于等于3无法赠送');
+            return;			
+		}
+		if(cc2>3){
+            alert('赠送后管控系数大于3，无法赠送');
+            return;		
+		}
+		if(num%10!==0){
+            alert('赠送数量必须为10的倍数');
+            return;
+		}
+		if(num<0){
+			alert('赠送数量不能为负数！');
+			return;
+		}
+		if(!code){
+			alert('验证码不能为空');
+			return;
+		}
+		if(uid && num && psw2 && code){
+			$.post("{:U('give')}",{uid:uid,num:num,psw2:psw2,code:code},function(data){
+				if(data.status == 'y'){
+					alert('赠送成功');
+					$("#gift").hide();
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}
+				
+			});
+		}else{
+			alert('请填写完整');
+		}
+	});
+    //找回二级密码
+    function back_password(){
+    	var code=$('.smsinput2').val();
+    	var ejpassword=$("#ejpassword").val().replace(/\s+/g,"");
+    	if(code.length==0){
+    	    alert('验证码不能为空');
+    	    return;
+    	}
+    	if(ejpassword.length==0){
+    		alert('请填写新的二级密码');
+    		return;
+    	}
+			$.post("{:U('back_password')}",{code:code,ejpassword:ejpassword},function(data){
+				if(data.status == 'y'){
+					alert('密码修改成功');
+				    setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}    	
+			});
+    }
+    //实名认证
+    function shiming(){
+    	var ckxm=$('input[name="ckrxm"]').val();
+    	var sfzhm=$('input[name="sfzhm"]').val();
+    	var yhmc=$('.yhmc').val();
+    	var yhkzh=$('input[name="yhkzh"]').val();
+    	var ylsjhm=$('input[name="ylsjhm"]').val();
+    	var code=$('.smsinput3').val();
+    	if(!ckxm&& !sfzhm&& !yhkzh&& !ylsjhm){
+             alert('信息不能为空');
+             return;
+    	}
+        if(yhmc==999){
+             alert('请填写银行卡所属银行');
+             return;        	
+        }
+    	if(!code){
+    		alert('请填写验证码');
+    		return;
+    	}
+    	if(ckrxm && sfzhm && yhkzh && ylsjhm && yhmc){
+			$.post("{:U('member_certified')}",{name:ckxm,account_no:yhkzh,id_card_code:sfzhm,bank_pre_mobile:ylsjhm,bank_name:yhmc,code:code},function(data){
+				if(data.status == 'y'){
+                setTimeout(function(){
+					window.location.reload();
+				},1000);
+					alert(data.info);
+				}else{
+					alert(data.info);
+				}    	
+			});
+        }
+    }
+	// 种植莲藕
+	function add_lotus(){
+		var num = $('#add_lotus_num').val();
+		var lotus_id = $('#add_lotus_id').val();
+		//判断是否为整数
+		if(num%1 !== 0){
+			alert('增苗莲藕数必须为整数');
+			return;
+		}
+		//判端是否为正数
+		if(num<0){
+			alert('增苗莲藕数必须大于0');
+			return;
+		}
+		if(num){
+			$.post("{:U('add_lotus')}",{num:num,lotus_id:lotus_id},function(data){
+				if(data.status == 'y'){
+					alert('增苗成功');
+					$("#add_lotus").hide();
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}
+				
+			});
+		}else{
+			alert('请填写完整');
+		}
+	}
+
+// input失去焦点事件
+$("#get_num").blur(function(){
+	$('#get_num').val(200);
+});
+	function get_money(){
+		var pay = $('#get_pay').val();
+		var num = $('#get_num').val();
+		var name = $('#get_name').val();
+		var money_use = $('#money_use').text();
+		if({$gkxs}>3){
+            alert('管控系数大于等于3无法提现');
+            return;			
+		}
+		num = parseFloat(num);
+		money_use = parseFloat(money_use);
+		if(num>200){
+			$('#get_num').val(200);
+			num = 200;
+		}
+		if(num>money_use){
+			alert('提现莲藕数不能大于已有莲藕数');
+		}
+		if(pay&&num&&name){
+			$.post("{:U('get_money')}",{pay:pay,num:num,name:name},function(data){
+				if(data.status == 'y'){
+					alert('提现已申请');
+					$("#get_money").hide();
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}
+				
+			});
+		}else{
+			alert('请填写完整');
+		}
+	}
+
+	function telephone_fare(){
+		var tel = $('#fare_tel').val();
+		var num = $('#fare_num').val();
+		var name = $('#fare_name').val();
+		var money_use = $('#fare_use').text();
+		num = parseFloat(num);
+		money_use = parseFloat(money_use);
+		if(num>200){
+			$('#get_num').val(200);
+			num = 200;
+		}
+		if(num>money_use){
+			alert('充值莲藕数不能大于已有莲藕数');
+		}
+		if(tel&&num&&name){
+			$.post("{:U('telephone_fare')}",{tel:tel,num:num,name:name},function(data){
+				if(data.status == 'y'){
+					alert('话费充值已申请');
+					$("#get_money").hide();
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				}else{
+					alert(data.info);
+				}
+				
+			});
+		}else{
+			alert('请填写完整');
+		}
+	}
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        //播放完毕
+        $('#mp3Btn').on('ended', function() {
+            console.log("音频已播放完成");
+            // $('#music').css('background-image','url(__PUBLIC__img/music-off.png)');
+             audio.play(); //播放
+            	return;
+        });
+        //播放器控制
+        var audio = document.getElementById('mp3Btn');
+        audio.volume = .3;
+        $('#music').click(function() {
+            event.stopPropagation();//防止冒泡
+            if(audio.paused){ //如果当前是暂停状态
+                $('#music').css('background-image','url(__PUBLIC__img/music-on.png)');
+                audio.play(); //播放
+                return;
+            }else{
+            	//当前是播放状态
+                $('#music').css('background-image','url(__PUBLIC__img/music-off.png)');
+                audio.pause(); //暂停''
+            }
+        });
+    });
+
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+<script type="text/javascript">
+	document.addEventListener("WeixinJSBridgeReady", function () { 
+        document.getElementById('mp3Btn').play(); 
+        // document.getElementById('video').play(); 
+    }, false);
+</script>
+
+<script type="text/javascript">
+$(document).click(function(){
+	var audio = document.getElementById('mp3Btn_2');
+    audio.volume = .3;
+    audio.play(); 
+})
+</script>
+
+<script type="text/javascript">
+	function noteShow(e){
+		if(e==1){
+			$('#goumai').show();
+			$('#zensong').hide();
+			$('#duihuan').hide();
+			$('#tixian').hide();
+			$('#huanwu').hide();
+		}else if(e==2){
+			$('#goumai').hide();
+			$('#zensong').show();
+			$('#duihuan').hide();
+			$('#tixian').hide();
+			$('#huanwu').hide();
+		}else if(e==3){
+			$('#goumai').hide();
+			$('#zensong').hide();
+			$('#duihuan').show();
+			$('#tixian').hide();
+			$('#huanwu').hide();
+		}else if(e==4){
+			$('#goumai').hide();
+			$('#zensong').hide();
+			$('#duihuan').hide();
+			$('#tixian').show();
+			$('#huanwu').hide();
+		}else if(e==5){
+			$('#goumai').hide();
+			$('#zensong').hide();
+			$('#duihuan').hide();
+			$('#tixian').hide();
+			$('#huanwu').show();
+		}
+	}
+</script>
+
+<script type="text/javascript">
+	function changeTable(e,n){
+		$('#team_1').hide();
+		$('#team_2').hide();
+		$('#team_3').hide();
+		$('#img_1').show();
+		$('#img_2').show();
+		$('#img_3').show();
+		$('#img_0_1').hide();
+		$('#img_0_2').hide();
+		$('#img_0_3').hide();
+		$('#team_'+e).show();
+		$('#img_'+e).hide();
+		$('#img_0_'+e).show();
+		//会员数量
+		if(e==1){
+			$('#team_num').text(n);
+			$('#team_numson').text({:count($he['offspring_1son'])});
+		}else if(e==2){
+			$('#team_num').text(n);
+			$('#team_numson').text({:count($he['offspring_2son'])});
+		}else if(e==3){
+			$('#team_num').text(n);
+			$('#team_numson').text({:count($he['offspring_3son'])});
+		}
+
+	}
+</script>
+<script type="text/javascript">
+function clicktab_son1(){
+	$('.tab_son1').addClass('tab_son12');
+	$('.tab_son2').removeClass('tab_son13');
+	$('.tab1').show();
+	$('.tab2').hide();
+}
+function clicktab_son2(){
+	$('.tab_son1').removeClass('tab_son12');
+	$('.tab_son2').addClass('tab_son13');
+	$('.tab1').hide();
+	$('.tab2').show();
+}
+</script>
+<script type="text/javascript">
+        var wait=60;
+        function time(o) {
+            if (wait == 0) {  
+                $(o).val("获取短信");
+                wait = 60;
+            } else { 
+                $(o).val("重新发送(" + wait + ")");  
+                wait--;  
+                setTimeout(function() {  
+                    time(o)  
+                },  
+                1000)  
+            }  
+        }
+        $('.hqyzm').click(function(){
+            var mobile = '{$he.user.username}';
+            var code=$('#smsinput').val();
+            var host=document.domain;
+            if(wait < 60 && wait != 0){
+                return false;
+            }
+            console.log(host);
+            var thas = this;
+            $.ajax({
+                url:"{:U(sendCode)}",
+                type:"post",
+                data:{mobile:mobile,code:code},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 'y'){
+                    	time(thas);
+                        alert(data.info);
+                    }else{
+                        alert("发送失败");
+                    }
+
+                }
+            });
+        });
+//银行验证码
+        $('.hqyzm2').click(function(){
+            var mobile =$('#ylsjhm').val();
+            var code=$('#smsinput3').val();
+            var host=document.domain;
+            if(!mobile){
+            	alert('银行预留手机号码不能为空');
+            	return;
+            }
+            if(wait < 60 && wait != 0){
+                return false;
+            }
+            console.log(host);
+            var thas = this;
+            $.ajax({
+                url:"{:U(sendCode)}",
+                type:"post",
+                data:{mobile:mobile,code:code},
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    if(data.status == 'y'){
+                    	time(thas);
+                        alert(data.info);
+                    }else{
+                        alert("发送失败");
+                    }
+
+                }
+            });
+        });
+</script>
+
+

@@ -1,0 +1,101 @@
+<include file="Public/header" />
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-message">
+		<div class="row cl">
+			<label class="form-label col-2"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$title}"  name="title" datatype="*" nullmsg="角色名称不能为空">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">角色描述：</label>
+			<div class="formControls col-10">
+				<input type="text" class="input-text" value="{$note}" name="note">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-2">配置权限：</label>
+			<div class="formControls col-10">
+				<volist name="rule" id="v1">
+				<dl class="permission-list">
+					<dt>
+						<label>
+							<input type="checkbox" value="{$v1.id}" name="rules[]" 
+							<if condition="in_array($v1['id'],$rules)">checked</if>>
+							{$v1.title}</label>
+					</dt>
+					<dd>	
+						<volist name="v1.child" id="v2">
+						<dl class="cl permission-list2">
+							<dt>
+								<label class="">
+									<input type="checkbox" value="{$v2.id}" name="rules[]"
+									<if condition="in_array($v2['id'],$rules)">checked</if>>
+									{$v2.title}</label>
+							</dt>
+							<dd>
+							<volist name="v2.child" id="v3">
+								<label class="">
+									<input type="checkbox" value="{$v3.id}" name="rules[]"
+									<if condition="in_array($v3['id'],$rules)">checked</if>>
+										{$v3.title}</label>
+							</volist>
+							</dd>
+						</dl>
+						</volist>
+					</dd>
+				</dl>
+				</volist>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<input type="hidden" name="id" value="{$id}">
+				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+$(function(){
+	$(".permission-list dt input:checkbox").click(function(){
+		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+	});
+	$(".permission-list2 dd input:checkbox").click(function(){
+		var l =$(this).parent().parent().find("input:checked").length;
+		var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+		if($(this).prop("checked")){
+			$(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+			$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+		}
+		else{
+			if(l==0){
+				$(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+			}
+			if(l2==0){
+				$(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+			}
+		}
+		
+	});
+
+	$("#form-message").Validform({
+		tiptype:1,
+    	ajaxPost:true,
+		callback:function(data){
+      	setTimeout(function(){
+        $.Hidemsg();
+        if(data.status == 'y'){
+          var index = parent.layer.getFrameIndex(window.name);
+          parent.location.reload();
+          parent.layer.close(index);
+        }
+      },1000);
+		}
+	});
+});
+</script>
+</body>
+</html>
