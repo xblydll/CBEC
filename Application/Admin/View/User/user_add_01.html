@@ -1,0 +1,56 @@
+<include file="Public:header" />
+
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-msg">
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>账号：</label>
+			<div class="formControls col-5">
+				{$username}
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>点券：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$coupons}"  name="coupons" datatype="n" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="id" value="{$id}">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+		
+	$("#form-msg").Validform({
+		tiptype:2,
+		ajaxPost:true,
+		callback:function(data){
+			setTimeout(function(){
+				$.Hidemsg();
+				if(data.status == 'y'){
+					var index = parent.layer.getFrameIndex(window.name);
+					parent.location.reload();
+					parent.layer.close(index);
+				}
+			},1000);
+		}
+	});
+});
+</script>
+</body>
+</html>

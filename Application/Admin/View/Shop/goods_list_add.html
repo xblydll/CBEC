@@ -1,0 +1,135 @@
+<include file="Public:header" />
+
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-msg">
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>商品名称：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$name}"  name="name" datatype="*" nullmsg="荷苗名称不能为空">	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>价格：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$price}"  name="price" datatype="n" nullmsg="价格不能为空">	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>库存：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$num}"  name="num" datatype="n" nullmsg="必填项">	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>排序：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$sort}"  name="sort" datatype="n">	
+			</div>
+			<div class="col-4"></div>
+		</div>
+
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>商品描述：</label>
+			<div class="formControls col-5">
+				<textarea class="textarea" name="conment">{$conment}</textarea>
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-2">商品图片：</label>
+			<div class="formControls col-10">
+				<img id="thumb_url" src="<if condition="$img">__ROOT__{$img}<else/>__PUBLIC__/nopic.jpg</if>" style="height:100px;">
+						<input type="hidden"  id="picurl" name="img" value="{$img}" />  
+					<button class="btn btn-success" id="image"  type="button" >选择图片</button>
+					</div>
+		</div>
+
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input type="hidden" name="id" value="{$id}">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</div>
+
+<link rel="stylesheet" href="/Public/Admin/kindeditor-4.1.10/themes/default/default.css" />
+<script charset="utf-8" src="/Public/Admin/kindeditor-4.1.10/kindeditor-min.js"></script>
+<script charset="utf-8" src="/Public/Admin/kindeditor-4.1.10/lang/zh_CN.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+		
+	$("#form-msg").Validform({
+		tiptype:2,
+		ajaxPost:true,
+		callback:function(data){
+			setTimeout(function(){
+				$.Hidemsg();
+				if(data.status == 'y'){
+					var index = parent.layer.getFrameIndex(window.name);
+					parent.location.reload();
+					parent.layer.close(index);
+				}
+			},1000);
+		}
+	});
+});
+
+
+KindEditor.ready(function(K) {
+	var editor = K.editor({
+	    allowFileManager : true,       
+	    uploadJson : "/index.php/Admin/Base/uploadImg/path/system/thumb/0.html", //上传功能
+	    fileManagerJson : '/Public/Admin/kindeditor-4.1.10/php/file_manager_json.php?dirpath=system', //网络空间
+	  });  
+	//上传背景图片
+	K('#image').click(function() {
+	  editor.loadPlugin('image', function() {
+	    editor.plugin.imageDialog({
+	    	showRemote : false, //网络图片不开启
+	    	//showLocal : false, //不开启本地图片上传
+	     	imageUrl : K('#picurl').val(),
+	        clickFn : function(url, title, width, height, border, align) {
+	        K('#picurl').val(url);
+	        $('#thumb_url').attr("src",'' + url);
+	        editor.hideDialog();
+	      }
+	    });
+	  });
+	});	
+	K('#image2').click(function() {
+	  editor.loadPlugin('image', function() {
+	    editor.plugin.imageDialog({
+	    	//showRemote : false, //网络图片不开启
+	    	//showLocal : false, //不开启本地图片上传
+	     	imageUrl : K('#picurl2').val(),
+	        clickFn : function(url, title, width, height, border, align) {
+	        K('#picurl2').val(url);
+	        $('#thumb_url2').attr("src",'' + url);
+	        editor.hideDialog();
+	      }
+	    });
+	  });
+	});	
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+html body{
+	padding: 0px;
+	margin: 0px;
+	width:667px;
+	height: 375px;
+}
+.pond_bg{
+	width: 100%;
+	height: 100%;
+	background: url('../img/chi_1.gif');
+	background-size: 100% 100%;
+	position: relative;
+}
+.pond_bg .pond_lotus_2{
+	background: url('../img/hehua_2.png');
+	background-size: 100% 100%;
+	width:147px;
+	height: 87px;
+}
+.pond_bg .lotus_list_1{
+	position: absolute;
+	bottom: 5px;
+    left: 5px;
+    z-index: 4;
+}
+.pond_bg .lotus_list_2{
+	position: absolute;
+	bottom: 5px;
+    left: 230px;
+    z-index: 4;
+}
+
+.pond_bg .lotus_list_3{
+	position: absolute;
+	bottom: 5px;
+    left: 442px;
+    z-index: 4;
+}
+
+.pond_bg .lotus_list_4{
+	position: absolute;
+	bottom: 59px;
+    left: 125px;
+    z-index: 3;
+}
+
+.pond_bg .lotus_list_5{
+	position: absolute;
+	bottom: 59px;
+    left: 354px;
+    z-index: 3;
+}
+.pond_bg .lotus_list_6{
+	position: absolute;
+	bottom: 160px;
+    left: 5px;
+    z-index: 2;
+}
+.pond_bg .lotus_list_7{
+	position: absolute;
+	bottom: 160px;
+    left: 230px;
+    z-index: 2;
+}
+.pond_bg .lotus_list_8{
+	position: absolute;
+	bottom: 160px;
+    left: 442px;
+    z-index: 2;
+}
+
+
+
+.pond_bg .pond_lotus_1{
+	background: url('../img/hehua_1.png');
+	background-size: 100% 100%;
+	width:105px;
+	height:96px;
+	position: absolute;
+	bottom:32px; 
+	right:27px;
+}
+.pond_dragonfly{
+	background: url('../img/hehua_3.png');
+	background-size: 100% 100%;
+	width:42px;
+	height:42px;
+	position: absolute;
+	bottom: 107px;
+	left: 150px;
+}
+.pond_butterfly_1{
+	background: url('../img/chi_2.gif');
+	background-size: 100% 100%;
+	width:32px;
+	height: 32px;
+	position: absolute;
+	bottom:117px; 
+	right:84px;
+}
+.pond_butterfly_2{
+	background: url('../img/chi_3.gif');
+	background-size: 100% 100%;
+	width:32px;
+	height: 32px;
+	position: absolute;
+	bottom:68px; 
+	right:112px;
+}
+.index_bg{
+	width: 100%;
+	height: 100%;
+	background: url('../img/index_bg.png');
+	background-size: 100% 100%;
+	position: relative;
+}
+.index_left_vertical{
+	width:114px;
+	height: 100%;
+	margin-left: 5px;
+	display: flex;
+	padding: 40px 0 25px 0px;
+	flex-direction:column;
+}
+.index_right_vertical{
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    margin-right: 8px;
+	width:116px;
+	height: 100%;
+	display: flex;
+	padding: 75px 0 34px 0px;
+	flex-direction:column;
+}
+.index_right{
+	flex: 1;
+	background: red;
+	margin-bottom:20px;
+}
+
+.index_left{
+	flex: 1;
+/*	background: yellow;*/
+	margin-top: 10px;
+}
+/*右边*/
+.index_right_1{
+	background: url('../img/index_11.png');	background-size: 100% 100%;
+}
+.index_right_2{
+	background: url('../img/index_12.png');	background-size: 100% 100%;
+}
+.index_right_3{
+	background: url('../img/index_13.png');	background-size: 100% 100%;
+}
+.index_right_4{
+	background: url('../img/index_14.png');	background-size: 100% 100%;
+}
+
+/*左边*/
+.index_left_1{
+	background: url('../img/index_1.png');	background-size: 100% 100%;
+}
+.index_left_2{
+	background: url('../img/index_2.png');	background-size: 100% 100%;
+}
+.index_left_3{
+	background: url('../img/index_3.png');	background-size: 100% 100%;
+}
+.index_left_4{
+	background: url('../img/index_4.png');	background-size: 100% 100%;
+}
+.index_left_5{
+	background: url('../img/index_5.png');	background-size: 100% 100%;
+}
+.index_left_6{
+	background: url('../img/index_6.png');	background-size: 100% 100%;
+}
+.index_left_7{
+	background: url('../img/index_7.png');	background-size: 100% 100%;
+}
+.index_left_8{
+	background: url('../img/index_8.png');	background-size: 100% 100%;
+}
+.index_center{
+    width: 97px;
+    height: 25px;
+    margin-left: -49px;
+    background: url(../img/index_10.png);
+    background-size: 100% 100%;
+    position: absolute;
+    left: 50%;
+    bottom: 13px;
+}
+.index_center_9{
+	width:144px;
+	height: 193px;
+	position: absolute;
+	left: 50%;
+	margin-left: -72px;
+	background: url(../img/index_9.png);
+	background-size: 100% 100%;
+	bottom: 32px;
+}
+.index_top_logout{
+	background: url(../img/logout.png);
+	background-size: 100% 100%;
+	position: absolute;
+	width: 33px;
+	height: 32px;
+	right: 8px;
+	top:5px;
+}
+.window_shadow{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.37);
+    z-index: 2;
+    top: 0;
+    display: none;
+}
+.junior_member{
+	background: url(../img/member_center.png);
+	background-size: 100% 100%;
+	width:483px;
+	height: 309px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin:-154px 0px  0px -242px;
+	z-index: 3;
+	padding: 0px 15px;
+}
+.junior_member .x_png{
+	background: url(../img/x@1.png);
+	background-size: 100% 100%;
+	position: absolute;
+	width: 33px;
+	height: 32px;
+	top: 14px;
+    right: -12px;
+}
+.junior_member_tittle{
+	background: url(../img/junior_member.png);
+	background-size: 100% 100%;
+	width:67px;
+	height: 18px;
+	position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -30px;
+}
+.junior_member .junior_img{
+	width: 135px;
+    height: 170px;
+	float: left;
+    margin-top: 101px;
+}
+.junior_img_1{
+	background:url(../img/junior_1.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.junior_img_2{
+	margin: 101px 23px 0px 23px;
+	background:url(../img/junior_2.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.junior_img_3{
+	background:url(../img/junior_3.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.junior_money{
+	width: 100px;
+	height: 43px;
+	margin: 110px auto;
+}
+.junior_money_1{
+	background: url(../img/9000.png);
+	background-size: 100% 100%;
+}
+.junior_money_2{
+	background: url(../img/6000.png);
+	background-size: 100% 100%;
+}
+.junior_money_3{
+	background: url(../img/3000.png);
+	background-size: 100% 100%;
+}
+
+
+
+/*中级会员*/
+.middle_member_tittle{
+	background: url(../img/middle_member.png);
+	background-size: 100% 100%;
+	width:67px;
+	height: 18px;
+	position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.middle_img_1{
+	background:url(../img/middle_1.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.middle_img_2{
+	margin: 101px 23px 0px 23px;
+	background:url(../img/middle_2.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.middle_img_3{
+	background:url(../img/middle_3.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.middle_money_1{
+	background: url(../img/18000.png);
+	background-size: 100% 100%;
+}
+.middle_money_2{
+	background: url(../img/15000.png);
+	background-size: 100% 100%;
+}
+.middle_money_3{
+	background: url(../img/12000.png);
+	background-size: 100% 100%;
+}
+
+/*高级会员*/
+.high_member_tittle{
+	background: url(../img/high_member.png);
+	background-size: 100% 100%;
+	width:67px;
+	height: 18px;
+	position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.high_img_1{
+	background:url(../img/high_1.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.high_img_2{
+	margin: 101px 23px 0px 23px;
+	background:url(../img/high_2.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.high_img_3{
+	background:url(../img/high_3.png); 
+	    background-size: 100% 50%;
+    background-repeat: no-repeat;
+}
+.high_money_1{
+	background: url(../img/27000.png);
+	background-size: 100% 100%;
+}
+.high_money_2{
+	background: url(../img/24000.png);
+	background-size: 100% 100%;
+}
+.high_money_3{
+	background: url(../img/21000.png);
+	background-size: 100% 100%;
+}
+
+/*至尊会员*/
+.supreme_member_tittle{
+	background: url(../img/supreme_member.png);
+	background-size: 100% 100%;
+	width:67px;
+	height: 18px;
+	position: absolute;
+    top: 8px;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.supreme_img_1{
+	background:url(../img/supreme_1.png); 
+	background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 271px;
+    height: 179px;
+	margin: 50px auto 0px;
+
+}
+.supreme_money_1{
+	background: url(../img/30000.png);
+	background-size: 100% 100%;
+	width: 110px;
+    height: 43px;
+    margin: 5px auto;
+}
+.login_bg{
+	width: 100%;
+	height: 100%;
+	background: url('../img/login_bg.jpg');
+	background-size: 100% 100%;
+	position: relative;
+}
+.login_bg .login_user{
+	position: absolute;
+    height: 23px;
+    right: 7.5%;
+    width: 36.6%;
+    top: 108px;
+    border: none;
+    padding-left: 20px;
+}
+.login_bg  .login_psw{
+	position: absolute;
+    height: 23px;
+    right: 7.5%;
+    width: 36.6%;
+    top: 150px;
+    border: none;
+    padding-left: 20px;
+}
+.login_square{
+    width: 20px;
+    height: 20px;
+    /* border: 1px solid red; */
+    position: absolute;
+    top: 194px;
+}
+.login_square img{
+	width: 100%;
+    height: 100%;
+}
+.square_1{ right: 41.1%;}
+.square_2{right: 22.6%;}
+.login_bg .register{
+	width: 95px;
+	height: 41px;
+	position: absolute;
+	right: 207px;
+	top: 232px;
+	background: url(../img/register.png);
+	background-size: 100% 100%;
+}
+.login_bg .start_game{
+	width: 95px;
+	height: 41px;
+	position: absolute;
+	right: 50px;
+	top: 232px;
+	background: url(../img/start.png);
+	background-size: 100% 100%;
+}
+
+.register_content{
+	background: url(../img/register_content.png);
+	background-size: 100% 100%;
+	width:483px;
+	height: 309px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin:-154px 0px  0px -242px;
+	z-index: 3;
+	padding: 0px 15px;
+}
+.register_content .x_png{
+	background: url(../img/x@1.png);
+	background-size: 100% 100%;
+	position: absolute;
+	width: 33px;
+	height: 32px;
+	top: 14px;
+    right: -12px;
+}
+.register_content  .register_user{
+	width: 53%;
+    height: 33px;
+    border: 0px solid red;
+    position: absolute;
+    top: 60px;
+    right: 25%;
+}
+.register_content  .register_psw{
+	width: 53%;
+    height: 33px;
+    border: 0px solid red;
+    position: absolute;
+    top: 128px;
+    right: 25%;
+}
+.register_content  .register_code{
+	width: 53%;
+    height: 33px;
+    border: 0px solid red;
+    position: absolute;
+    top: 195px;
+    right: 25%;
+}
+.register_complete{
+	width: 95px;
+	height: 41px;
+	position: absolute;
+	right: 198px;
+	bottom: 15px;
+	background: url(../img/register_complete.png);
+	background-size: 100% 100%;
+}

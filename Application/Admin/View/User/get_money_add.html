@@ -1,0 +1,159 @@
+<include file="Public:header" />
+
+
+
+<body>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-msg">
+		<div class="row cl">
+			<label class="form-label col-3">提现(充值)账号：</label>
+			<div class="formControls col-5">
+				{$uid}
+			</div>
+			<div class="col-4"> </div>
+		</div>
+<!-- 		<div class="row cl">
+			<label class="form-label col-3">昵称：</label>
+			<div class="formControls col-5">
+				{$name}
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3">身份证：</label>
+			<div class="formControls col-5">
+				{$number}
+			</div>
+			<div class="col-4"> </div>
+		</div> -->
+
+
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>支付宝/手机号：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$alipay}"  name="alipay" datatype="*" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+        
+
+        <div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>姓名：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$name}"  name="name" datatype="*" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+        <div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>提现(充值)金额：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$lotus}"  name="lotus" datatype="*" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>提现(充值)手续费：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$lotus_fees}"  name="lotus_fees" datatype="*" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>实际(充值)提现：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="{$lotus}"  name="lotus_rel" datatype="*" >	
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>状态：</label>
+			<div class="formControls col-5">
+				<span class="select-box" style="width:300px;">
+				<select class="select" name="type" size="1" >
+					<option value="0">未处理</option>
+					<option value="1" {:$type ==1?'selected':''}>已处理</option>
+				</select>
+				</span>
+			</div>
+			<div class="col-4"> </div>
+		</div>
+
+
+
+
+
+		<div class="row cl">
+
+			<div class="col-9 col-offset-3">
+
+				<input type="hidden" name="id" value="{$id}">
+
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+
+			</div>
+
+		</div>
+
+	</form>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	$('.skin-minimal input').iCheck({
+
+		checkboxClass: 'icheckbox-blue',
+
+		radioClass: 'iradio-blue',
+
+		increaseArea: '20%'
+
+	});
+
+		
+
+	$("#form-msg").Validform({
+
+		tiptype:2,
+
+		ajaxPost:true,
+
+		callback:function(data){
+
+			setTimeout(function(){
+
+				$.Hidemsg();
+
+				if(data.status == 'y'){
+
+					var index = parent.layer.getFrameIndex(window.name);
+
+					parent.location.reload();
+
+					parent.layer.close(index);
+
+				}
+
+			},1000);
+
+		}
+
+	});
+
+});
+
+</script>
+
+</body>
+
+</html>

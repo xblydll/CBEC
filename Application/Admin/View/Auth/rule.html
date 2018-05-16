@@ -1,0 +1,104 @@
+<include file="Public/header" />
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 权限管理 <span class="c-gray en">&gt;</span> 菜单列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20"> 
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" data-title="添加菜单" _href="article-add.html" onclick="article_add('添加菜单','{:U('rule_add')}')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加菜单</a> <a href="javascript:;" onclick="$('#sort-form').submit();" class="btn btn-success radius"><i class="Hui-iconfont">&#xe681;</i> 排序</a></span> 
+	<span class="r">共有数据：<strong id="count">{:count($list)}</strong> 条</span>  
+ </div>
+	<div class="mt-20">
+		<form action="{:U('rule')}" method="post" id='sort-form'>
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="25"><input type="checkbox" name="" value=""></th>
+						<th width="80">排序</th>
+						<th width="50">ID</th>
+						<th>菜单</th>
+						<th width="60">状态</th>
+						<th width="120">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="v">
+						<tr class="text-c" id="tr{$v.id}">
+							<td><input type="checkbox" value="{$v.id}" name="del[]"></td>
+							<td><input type="text" class="input-text text-c" value="{$v.sort}" name="sort[{$v.id}]"/></td>
+							<td>{$v.id}</td>
+							<td class="text-l">{:str_repeat('▶', $v['level'])}&nbsp;{$v.title}</td>
+							<td>
+								<img src="__PUBLIC__/images/icon_{$v['status']==1?'right':'error'}_s.png" style="cursor:pointer;" onclick="toggle_status(this,{$v.id},{$v.status},'auth_rule','status')">
+							</td>
+							<td>
+								<a style="text-decoration:none" class="ml-5" 
+								onClick="article_add('菜单编辑','{:U('rule_add',array('id'=>$v['id']))}')" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
+								<a style="text-decoration:none" class="ml-5" onClick="member_del(this,{$v.id})" href="javascript:;" title="删除">
+								<i class="Hui-iconfont">&#xe6e2;</i></a>
+							</td>
+						</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+/*菜单-添加*/
+function article_add(title,url,w,h){
+	layer_show(title,url,w,h);
+}
+
+/*-删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:U('rule_del')}",{id:id},function(data){
+			if(data.status == 'y'){
+				//删除自己
+				$(obj).parents("tr").remove();
+				//数量赋值
+				$("#count").text(data.count);
+				layer.msg(data.info,{icon:1,time:1000});
+				//children的长度
+				for(var i=0;i<data.children.length;i++){
+					$("#tr"+data.children[i]).remove();
+				}
+			}else{
+				layer.msg(data.info,{icon:2,time:1000});
+			}
+		},'json');
+
+	});
+}
+//批量删除
+function datadel(){
+ var id='';	
+ $("input[name='del[]']:checked").each(function(){
+ 	id += $(this).val()+',';
+ });
+
+ if(id == ''){
+ 	layer.msg('必须选择分类哦!',{icon:2,time:1000});
+ 	return false;
+ }
+ layer.confirm('确认要删除吗？',function(index){
+ 	$.post("{:U('rule_del')}",{id:id},function(data){
+			if(data.status == 'y'){
+				$("input[name='del[]']:checked").each(function(){
+ 					$(this).parents('tr').remove();
+ 					//children的长度
+					for(var i=0;i<data.children.length;i++){
+						$("#tr"+data.children[i]).remove();
+					}
+ 				});
+ 				//数量赋值
+				$("#count").text(data.count);
+				layer.msg(data.info,{icon:1,time:1000});
+			}else{
+				layer.msg(data.info,{icon:2,time:1000});
+			}
+	});
+ });
+}
+</script> 
+</body>
+</html>

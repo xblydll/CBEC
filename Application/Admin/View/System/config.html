@@ -1,0 +1,196 @@
+<include file="Public:header" />
+<!-- 颜色 -->
+<link rel="stylesheet" href="/Public/Admin/lib/color/css/jquery.bigcolorpicker.css" type="text/css" />
+<script type="text/javascript" src="/Public/Admin/lib/color/js/jquery.bigcolorpicker.js"></script>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 基本设置 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+	<form action="" method="post" class="form form-horizontal" id="form-member-add">
+		<div id="tab-system" class="HuiTab">
+			<div class="tabBar cl"><span>基本设置</span><span>其他设置</span></div>
+			<div class="tabCon">
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>网站名称：</label>
+					<div class="formControls col-10">
+						<input type="text" name="base[webtitle]" placeholder="" value="{$base.webtitle}" class="input-text">
+					</div>
+				</div>
+
+
+				<div class="row cl">
+					<label class="form-label col-2">LOGO：</label>
+					<div class="formControls col-10">
+						<img id="thumb_url" src="<if condition="$base['logo']">__ROOT__{$base['logo']}<else/>__PUBLIC__/nopic.jpg</if>" style="height:100px;">
+						<input type="hidden"  id="picurl" name="base[logo]" value="{$base['logo']}" /> 
+						<input type="hidden" name="oldlogo" value="{$base.logo}" /> 
+					<button class="btn btn-success" id="image"  type="button" >选择图片</button>
+					</div>
+				</div>
+
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>一代推广达</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[tg1]" placeholder="" value="{$base.tg1}" class="input-text">
+					</div>
+					<label class="form-label col-0">人，台即赠送每天下级玩家所收益莲藕总数的10%，莲蓬固定收益0.5个*每玩家/天</label>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>二代推广达</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[tg2]" placeholder="" value="{$base.tg2}" class="input-text">
+					</div>
+					<label class="form-label col-0">人，增加获得：第二代的每天下级玩家所收益莲藕总数的5%，莲蓬固定收益0.3个*每玩家/天</label>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>三代推广达</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[tg3]" placeholder="" value="{$base.tg3}" class="input-text">
+					</div>
+					<label class="form-label col-0">人，增加获得：第三代的每天下级玩家所收益的1%，莲蓬固定收益0.1个*每玩家/天</label>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2">客服微信图片：</label>
+					<div class="formControls col-10">
+						<img id="thumb_url2" src="<if condition="$base['chat']">__ROOT__{$base['chat']}<else/>__PUBLIC__/nopic.jpg</if>" style="height:100px;">
+						<input type="hidden"  id="picurl2" name="base[chat]" value="{$base['chat']}" />  
+					<button class="btn btn-success" id="image2"  type="button" >选择图片</button>
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>客服微信1</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[tg4]" placeholder="" value="{$base.tg4}" class="input-text">
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>客服微信2</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[tg5]" placeholder="" value="{$base.tg5}" class="input-text">
+					</div>
+				</div>
+
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>支付宝提现开关</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[alipay]" placeholder="" value="{$base.alipay}" class="input-text">
+					</div>
+					<label class="form-label col-0">1表示开，0表示关闭</label>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>话费充值开关</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[hfcz]" placeholder="" value="{$base.hfcz}" class="input-text">
+					</div>
+					<label class="form-label col-0">1表示开，0表示关闭</label>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>赠送提现开关</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[zstx]" placeholder="" value="{$base.zstx}" class="input-text">
+					</div>
+					<label class="form-label col-0">1表示开，0表示关闭</label>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>系统维护开关</label>
+					<div class="formControls col-1">
+						<input type="text" name="base[xtwh]" placeholder="" value="{$base.xtwh}" class="input-text">
+					</div>
+					<label class="form-label col-0">1表示开，0表示关闭</label>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-2"><span class="c-red">*</span>系统维护公告内容</label>
+					<div class="formControls col-10">
+						<input type="text" name="base[ggnr]" placeholder="" value="{$base.ggnr}" class="input-text">
+					</div>
+				</div>
+
+			</div>
+
+			<div class="tabCon">
+
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-10 col-offset-2">
+				<button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+				<button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<link rel="stylesheet" href="/Public/Admin/kindeditor-4.1.10/themes/default/default.css" />
+<script charset="utf-8" src="/Public/Admin/kindeditor-4.1.10/kindeditor-min.js"></script>
+<script charset="utf-8" src="/Public/Admin/kindeditor-4.1.10/lang/zh_CN.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	$.Huitab("#tab-system .tabBar span","#tab-system .tabCon","current","click","0");
+	//颜色
+	$("#text-color").bigColorpicker("text-color","L",10);
+
+	$("#form-member-add").Validform({
+		tiptype:2,
+		ajaxPost:true,
+		callback:function(data){
+			setTimeout(function(){
+				$.Hidemsg();
+				if(data.status == 'y'){
+
+				}
+			},1000);
+		}
+	});
+
+});
+KindEditor.ready(function(K) {
+	var editor = K.editor({
+	    allowFileManager : true,       
+	    uploadJson : "/index.php/Admin/Base/uploadImg/path/system/thumb/0.html", //上传功能
+	    fileManagerJson : '/Public/Admin/kindeditor-4.1.10/php/file_manager_json.php?dirpath=system', //网络空间
+	  });  
+	//上传背景图片
+	K('#image').click(function() {
+	  editor.loadPlugin('image', function() {
+	    editor.plugin.imageDialog({
+	    	//showRemote : false, //网络图片不开启
+	    	//showLocal : false, //不开启本地图片上传
+	     	imageUrl : K('#picurl').val(),
+	        clickFn : function(url, title, width, height, border, align) {
+	        K('#picurl').val(url);
+	        $('#thumb_url').attr("src",'' + url);
+	        editor.hideDialog();
+	      }
+	    });
+	  });
+	});	
+	K('#image2').click(function() {
+	  editor.loadPlugin('image', function() {
+	    editor.plugin.imageDialog({
+	    	//showRemote : false, //网络图片不开启
+	    	//showLocal : false, //不开启本地图片上传
+	     	imageUrl : K('#picurl2').val(),
+	        clickFn : function(url, title, width, height, border, align) {
+	        K('#picurl2').val(url);
+	        $('#thumb_url2').attr("src",'' + url);
+	        editor.hideDialog();
+	      }
+	    });
+	  });
+	});	
+});
+
+</script>
+</body>
+</html>

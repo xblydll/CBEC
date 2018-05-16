@@ -1,0 +1,116 @@
+<include file="Public:header" />
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 安全问题 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+<!-- 	<form action="" method="get">
+	<div class="text-c">
+		<input type="text" class="input-text" style="width:250px" placeholder="用户/ID" name="word" value="{:I('word')}">
+		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	</form> -->
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+			<a class="btn btn-primary radius" onclick="article_add('添加数据','{:U('safety_question_add')}')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加数据</a>
+		</span> 
+		<span class="r">共有数据：<strong id="count">{:count($list)}</strong> 条</span> 
+	</div>
+
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr class="text-c">
+				<th width="20"><input type="checkbox" name="" value=""></th>
+				<th width="20">ID</th>
+				<th width="100">密保问题</th>
+				<th width="40">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name="list" id="v">
+			<tr class="text-c">
+				<td><input type="checkbox" name="del[]" value="{$v.id}" ></td>
+				<td>{$v.id}</td>
+				<td>{$v.conment}</td>
+
+				<td class="td-manage"></a> <a title="编辑" href="javascript:;" onclick="article_add('问题修改','{:U('safety_question_add',array('id'=>$v['id']))}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="问题删除" href="javascript:;" onclick="equipment_del(this,{$v.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				
+			</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="page">
+		{$page}
+	</div>
+</div>
+
+<script type="text/javascript">
+/*
+	参数解释：
+	title	标题
+	url		请求的url
+	id		需要操作的数据id
+	w		弹出层宽度（缺省调默认值）
+	h		弹出层高度（缺省调默认值）
+*/
+
+/*编辑-添加*/
+function article_add(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+/* 批量删除 */
+function datadel(){
+ var id='';	
+ $("input[name='del[]']:checked").each(function(){
+ 	id += $(this).val()+',';
+ });
+
+ if(id == ''){
+ 	layer.msg('必须选择一个',{icon:2,time:1000});
+ 	return false;
+ }
+ layer.confirm('确认要删除吗？',function(index){
+ 	$.post("{:U('safety_question_del')}",{id:id},function(data){
+		if(data.status == 'y'){
+			var i = 0;
+			$("input[name='del[]']:checked").each(function(){
+				i++;
+				$(this).parents('tr').remove();
+			});
+			layer.msg(data.info,{icon:1,time:1000});
+			$("#count").text($("#count").text()-i);
+		}else{
+			layer.msg(data.info,{icon:2,time:1000});
+		}
+	});
+ });
+}
+/*删除*/
+function equipment_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:U('safety_question_del')}",{id:id},function(data){
+			if(data.status == 'y'){
+				layer.msg(data.info,{icon:1,time:1000});
+				$(obj).parents("tr").remove();
+				$("#count").text($("#count").text()-1);
+			}else{
+				layer.msg(data.info,{icon:2,time:1000});
+			}
+		},'json');
+	});
+}
+
+
+/*编辑-添加*/
+function user_add(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+
+</script>
+</body>
+</html>

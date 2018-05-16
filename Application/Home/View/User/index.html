@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<p>个人中心</p>
+	<h3>ID:{$id}</h3>
+	<h3>账号：{$username}</h3>
+	<h3>点券：{$coupons}</h3>
+	<h3>莲藕：{$lotus}</h3>
+	<h3>莲蓬：{$peng}</h3>
+	<h3>星级：{$level}</h3>
+	<h3>我的花：
+	<volist name="generate" id="v">{$v.name},</volist>
+	</h3>
+	<h3>荷花苗列表</h3>
+	
+	<volist name="seedling" id="v">
+		<p>{$v.id}  {$v.name}<a href="{:U('generate',array('uid'=>$id,'hid'=>$v['id']))}">购买种植</a></p>
+	</volist>
+	<a href="{:U('Index/logout')}">切换账号</a>
+	<a href="{:U('d',array('uid'=>$id))}">清空数据</a>
+</body>
+</html>

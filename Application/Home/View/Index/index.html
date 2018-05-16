@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title>荷塘月色</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	   	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	    <meta content="telephone=no" name="format-detection"/>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/ydui.css">
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__css/style.css">
+		<script type="text/javascript" src="__PUBLIC__js/phoneforpx.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/ydui.flexible.js"></script>
+		<script type="text/javascript" src="__PUBLIC__js/ydui.js"></script>
+	</head>
+	<style type="text/css">
+     .dowloads_app{position: absolute;bottom: 2%;right: 1%;width:80px;height:30px;background: url(__PUBLIC__image/xiazai.png) no-repeat;background-size: 100% 100%;}
+	</style>
+<script type="text/javascript">
+  var u = navigator.userAgent;
+  var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+  var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+function changetext()
+{
+   if(isiOS){
+   	location.href="https://fir.im/2ce6"
+   }else{
+   	location.href="https://fir.im/s3me"
+   }
+}
+</script>
+	<body>
+		<div class="login_bg">
+			<div class="login_center">
+			<img class="login_one_entrance" id="light_1" src="__PUBLIC__image/login_1.png" onclick="toshow('1')">
+			<img class="login_one_entrance"  id="dark_1" src="__PUBLIC__image/dark_login_1.png" style="display: none">
+			<img class="login_two_entrance" id="light_2" src="__PUBLIC__image/login_2.png" onclick="toshow('2')">
+			<img class="login_two_entrance"  id="dark_2" src="__PUBLIC__image/dark_login_2.png" style="display: none">
+			<img class="login_three_entrance" id="light_3" src="__PUBLIC__image/login_3.png" onclick="toshow('3')">
+			<img class="login_three_entrance"  id="dark_3" src="__PUBLIC__image/dark_login_3.png" style="display: none">
+			</div>
+			<div class="dowloads_app" onclick="changetext();"></div>
+		<!-- 音频 -->
+		<video controls="controls" autoplay="autoplay" id="mp3Btn" style="display: none;">
+		  <source src="__PUBLIC__music/mp4.mp3" type="audio/mp3" />
+		</video>
+		<!-- 音频 end-->
+	
+		<!-- 点击音效 -->
+		<audio controls="controls"  id="mp3Btn_2" style="display: none;">
+		  <source src="__PUBLIC__music/button.ogg" type="audio/ogg" />
+		</audio>
+		<!-- 点击音效 -->
+
+
+
+<!-- 			<form action="" method="" id="login_form">
+				<input type="text" name="username" class="login_user" id="user" placeholder="请输入手机号码">
+				<input type="password" name="password" class="login_psw" id="psd" placeholder="请输入密码">
+				<div class="login_square square_1" onclick="addimg('1')">
+					<img src="__PUBLIC__img/gou.png" id="hook_1">
+				</div>
+				<div class="login_square square_2" onclick="addimg('2')">
+					<img src="__PUBLIC__img/gou.png" id="hook_2">
+				</div>
+			<div class="register" id="show_register"></div>
+			<div class="start_game" id="login_submit"></div>
+			</form> -->
+			
+			<!-- 新手手册窗口 -->
+			<div class="window_shadow" id="handbook_window">
+				<div class="handbook_content">
+					<div class="handbook_rule">
+					<h1>游戏的规章制度</h1>
+						<p>投资300莲藕兑换荷苗</p>
+						<p>每天生产莲藕数量为池塘内莲藕总数的2%</p>
+						<p>每天生产莲蓬数量为池塘内莲藕总数的1%</p>
+							
+									<h1>生长和推广收获：</h1>
+							<p>一、推广玩家1人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天。</p>
+							<p>二、推广玩家10人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天。</p>
+
+							<p>三、推广玩家20人并兑换300的荷苗成功种植，平台每天赠送第一代下级玩家收益莲藕的10%，莲蓬固定收益0.5个*每玩家/天、第二代下级玩家每天收益莲藕的5%，莲蓬固定收益0.3个*每玩家/天、第三代下级玩家每天收益莲藕的1%，莲蓬固定收益0.1个*每玩家/天。</p>
+							
+					</div>
+					<div class="handbook_back" onclick="tohidden('1')"></div>
+				</div>
+			</div>
+
+			<!-- 注册窗口 -->
+			<div class="window_shadow" id="register_window" >
+				<div class="register_content">
+					<div class="x_png" onclick="tohidden('2')"></div>
+					<div class="content_form_submit" >
+					<form action="" method="" id="register_form">
+						<span class="space_for_4">手机号码</span>：
+						<input type="number" name="username" class="register_user" id="register_user" placeholder="请输入手机号"><br/>
+						<!-- 身份证号码：<input type="text" class="register_user" name="number" id="number" placeholder="请输入身份证号码"><br/> -->
+						<span class="space_for_3">用户名</span>：
+						<input type="text" name="name" class="register_user" id="name" placeholder="请输入昵称"><br/>
+						<div id="name_ment" style="font-size: 13px;margin-top: -20px;padding: 10px 0;color: red;display: none">
+							<span>昵称已存在，请更换昵称</span>
+						</div>
+						
+						密<span class="for_space_50px"></span>码：
+						<input type="password" name="password" class="register_psw" id="register_psw" placeholder="请输入密码"><br/>
+						<span class="space_for_4">确认密码</span>：
+						<input type="password" name="password" class="register_psw" id="register_psw_2" placeholder="请确认密码"><br/>
+						<span class="space_for_4">二级密码</span>：<input type="password" name="password2" class="register_psw" id="register_psw1" placeholder="请设置二级密码"><br/>
+						<span class="space_for_4">确认密码</span>：<input type="password" name="password2" class="register_psw" id="register_psw2" placeholder="请确认密码"><br/>
+<!-- 						<span class="space_for_4">密保问题</span>：
+						<select class="question_id2" name="question_id2" id="question_id2" style="background: white;padding: 4px 10px;font-size: 12px;margin: 0px 0px 20px 0;">
+							<option value="999">=选择密保问题=</option>
+							<volist name="question_list" id="vo">
+							<option value="{$vo.id}">{$vo.conment}</option>
+							</volist>
+						</select><br/>	
+						<span class="space_for_4">密保答案</span>：<input type="text" name="question_answer2" class="question_answer2" placeholder="请输入密保答案"><br/> -->					
+						<span class="space_for_3">邀请码</span>：
+						<input type="text" name="code" class="register_code" id="register_code" placeholder="请输入邀请码"><br/>
+						<span class="space_for_3">验证码</span>：
+						<input type="text" name="veri_code" class="login_code_input" id="register_veri_code" placeholder="请输入验证码" >
+						<div class="login_code" id="verifi_code_1">OP2X</div><span onclick="get_code(4,1)">刷新</span>
+						<div class="register_complete" id="register_submit"></div>
+					</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- 登录窗口 -->
+			<div class="window_shadow" id="login_window" >
+				<div class="login_content">
+					<div class="x_png" onclick="tohidden('3')"></div>
+					<div class="content_form_submit" style="margin-left: 70px;overflow-y: hidden;height: 220px">
+					<form action="" method="" id="login_form">
+						账<span class="for_space_50px" style="width: 24px"></span>号：<input type="text" name="username" value="{$user.0}" class="register_user" id="user" placeholder="请输入账号"><br/>			
+						密<span class="for_space_50px" style="width: 24px"></span>码：<input type="password" name="password" value="{$user.1}" class="register_psw" id="pwd" placeholder="请输入密码"><br/>
+						<p class="line-height">
+							<span class="clcle_gou_1" onclick="addimg('1')">
+								<img src="__PUBLIC__image/gou.png" class="item_gou" id="hook_1">
+							</span>
+								<span class="item_1">记住密码</span>
+							<span class="clcle_gou_2" onclick="addimg('2')">
+								<img src="__PUBLIC__image/gou.png" class="item_gou" id="hook_2">
+							</span>
+								<span class="item_2">同意《<a href="">用户协议</a>》</span>
+						</p>
+						<div class="find_psw" onclick="tabShow('1')"></div>
+						<div class="href_register" onclick="tabShow('2')"></div>
+						<div class="login_complete" id="login_submit"></div>
+					</form>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- 找回密码 -->
+			<div class="window_shadow" id="find_psw_window" >
+				<div class="find_psw_content">
+					<div class="x_png" onclick="tohidden('4')"></div>
+					<div class="content_form_submit" >
+					<form action="" method="" id="find_psw_form">
+					<!-- 	账<span class="for_space_50px"></span>号：<input type="number" class="register_user" id="register_user_find" placeholder="请输入账号"><br/>
+						身份证号码：<input type="text"  class="register_user" id="IDcard" placeholder="请输入身份证号码"><br/>
+						姓<span class="for_space_50px"></span>名：<input type="text" class="register_user" id="name_find" placeholder="请输入姓名"><br/> -->
+						<span class="space_for_4">手机号码</span>：<input type="number" name="username" class="register_psw telyzm"  placeholder="请输入手机号" id="username" ><br/>
+<!-- 						<span class="space_for_4">密保问题</span>：
+						<select name="question_id" id="question_id" style="background: white;padding: 4px 10px;font-size: 12px;margin: 0px 0px 20px 0;">
+							<option value="999">=选择密保问题=</option>
+							<volist name="question_list" id="vo">
+							<option value="{$vo.id}">{$vo.conment}</option>
+							</volist>
+						</select><br/>
+						<span class="space_for_4">密保答案</span>：<input type="text" name="question_answer" class="register_psw" id="question_answer" placeholder="请输入密保答案"><br/> -->
+						<span class="space_for_4">设置密码</span>：<input type="password" name="password" class="register_psw" id="register_psw_find_1" placeholder="请设置密码"><br/>
+						<span class="space_for_4">确认密码</span>：<input type="password" name="password" class="register_psw" id="register_psw_find_2" placeholder="请确认密码"><br/>
+						<span class="space_for_3">验证码</span>：<input type="text" name="code" class="login_code_input" id="register_code_find" placeholder="请输入验证码" >
+						<input type="button" value="点击获取" class="hqyzm">
+						<div class="find_psw_complete" id="find_psw_submit"></div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>
+<script type="text/javascript">
+        var wait=60;
+        function time(o) {
+            if (wait == 0) {  
+                $(o).val("获取短信");
+                wait = 60;
+            } else { 
+                $(o).val("重新发送(" + wait + ")");  
+                wait--;  
+                setTimeout(function() {  
+                    time(o)  
+                },  
+                1000)  
+            }  
+        }
+        $('.hqyzm').click(function(){
+            var mobile = $('.telyzm').val();
+            var code=$('.login_code_input').val();
+            var host=document.domain;
+            if(wait < 60 && wait != 0){
+                return false;
+            }
+            if(mobile){
+            var thas = this;
+            $.ajax({
+                url:"{:U(sendCode)}",
+                type:"post",
+                data:{mobile:mobile,code:code},
+                dataType:"json",
+                success:function(data){
+                console.log(data.status);
+                    if(data.status == 'y'){
+                    	time(thas);
+                        alert(data.info);
+                    }else{
+                        alert(data.info);
+                    }
+
+                }
+            });            	
+            }else{
+            	alert('手机号码不能为空');
+            	return;
+            }
+
+        });
+</script>
+<script type="text/javascript">
+	function addimg(e){
+		$('#hook_'+e).toggle();
+		if($('#hook_1').is(":hidden")){
+			console.log('不记住密码')
+		}
+	}
+
+	function tabShow(e){
+		if(e=='1'){
+			$('#login_window').hide();
+			$('#find_psw_window').show();
+		}else if(e=='2'){
+			$('#login_window').hide();
+			$('#register_window').show();
+		}
+
+
+	}
+
+	function toshow(e){
+		if(e == "1"){
+			$('#light_1').hide();
+			$('#dark_1').show();
+			$('#handbook_window').show('slow');
+		}else if(e == "2"){
+			$('#light_2').hide();
+			$('#dark_2').show();
+			$('#register_window').show('slow');
+		}else if(e == "3"){
+			$('#light_3').hide();
+			$('#dark_3').show();
+			$('#login_window').show('slow');
+		}
+		
+	}
+	function tohidden(e){
+		if(e == "1"){
+			$('#light_1').show();
+			$('#dark_1').hide();
+			$('#handbook_window').hide();
+		}else if(e == "2"){
+			$('#light_2').show();
+			$('#dark_2').hide();
+			$('#light_3').show();
+			$('#dark_3').hide();
+			$('#register_window').hide();
+		}else if(e == "3"){
+			$('#light_3').show();
+			$('#dark_3').hide();
+			$('#login_window').hide();
+		}else if(e == "4"){
+						$('#light_3').show();
+			$('#dark_3').hide();
+			$('#find_psw_window').hide();
+		}
+		
+	}
+
+	//获取验证码
+	function get_code(n,a) {
+	var chars = ['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P'];
+	var res = "";
+     for(var i = 0; i < n ; i ++) {
+         var id = Math.ceil(Math.random()*25);
+         res += chars[id];
+     }
+		$('#verifi_code_'+a).text(res);
+     
+	}
+	get_code(4,2);
+
+	//找回密码校验
+	$('#find_psw_submit').click(function(){
+		// var user = $('#register_user_find').val();
+		// var IDcard = $('#IDcard').val();
+		// var name = $('#name_find').val();
+		var username = $('#username').val();
+		var psw_1= $('#register_psw_find_1').val();
+		var psw_2= $('#register_psw_find_2').val();
+		var find_code = $('#register_code_find').val();
+		var verifi_code = $('#verifi_code_2').text();
+		verifi_code = verifi_code.toLocaleUpperCase();
+		find_code = find_code.toLocaleUpperCase();
+		var question_answer = $('#question_answer').val();
+		var question_id = $('#question_id option:selected').val();
+		if(!username || !psw_1 || !find_code ){
+			alert('请填写完整用户信息');
+		}else if(psw_1 != psw_2){
+			alert('两次密码输入不一致');
+		}else{
+			$.post("{:U('back_pwd')}",{username:username,pwd:psw_1,find_code:find_code},function(data){
+				if(data.status == 'y'){
+					alert('设置密码成功');
+					$("#login_form").find("input").val('');
+					$('#find_psw_window').hide();
+					$('#login_window').show();
+				}else{
+					alert(data.info);
+				}
+			});
+
+			
+		}
+	})
+
+
+	//登录校验
+	$('#login_submit').click(function(){
+		$('#login_submit').css('background-image','url(__PUBLIC__image/dark_jinru.png)');
+		setTimeout("login()",500); 
+	})
+
+	function login(){
+		var user = $("#user").val();
+		var pwd = $("#pwd").val();
+		var dis = $("#hook_1").css("display");
+		var protocol = $("#hook_2").css("display");
+		dis = dis =='block' ? 1 : 0;
+		if(protocol != 'block'){
+			alert('请勾选并阅读用户协议');
+			$('#login_submit').css('background-image','url(__PUBLIC__image/login_compelet.png)');
+			return false;
+		}
+		if(!user || !pwd){
+			alert('请填写完整用户信息');
+			$('#login_submit').css('background-image','url(__PUBLIC__image/login_compelet.png)');
+		}else{
+			$.post("{:U('Index/login')}",{user:user,pwd:pwd,online:dis},function(data){
+				if(data.status == 'y'){
+					location.replace(location.href);
+				}else{
+					alert(data.info);
+					$('#login_submit').css('background-image','url(__PUBLIC__image/login_compelet.png)');
+				}
+			});
+		}
+	}
+	//注册校验
+		$('#register_submit').click(function(){
+		var username = $("#register_user").val();
+		var password = $("#register_psw").val();
+		var password_2 = $("#register_psw_2").val();
+		var psw2 = $('#register_psw1').val();
+		var psw2_2 = $('#register_psw2').val();
+		var code = $("#register_code").val();
+		var veri_code = $('#register_veri_code').val();
+		veri_code = veri_code.toUpperCase();
+		var code_1 = $('#verifi_code_1').text();
+		code_1 = code_1.toUpperCase();
+		var number = $("#number").val();
+		var name = $("#name").val();
+
+		// 是否选择密保问题。
+		// var selectedVal = $('#question_id2 option:selected').val();
+		// if(selectedVal == 999){
+		// 	alert('请选择密保问题');
+		// 	return;
+		// }
+
+		if(!username || !password){
+			alert('请填写完整用户信息');
+		}else if(password != password_2){
+			alert('两次登录密码输入不一致');
+		}else if(psw2 != psw2_2){
+			alert('二级密码输入不一致');
+		}else if(veri_code != code_1){
+			alert('验证码不正确')
+			}else{
+				$.post(
+					"{:U('register')}",
+					{
+						username:username,
+						password:password,
+						code:code,
+						number:number,
+						name:name,
+						psw2:psw2
+					},
+					function(data){
+					if(data.status == 'y'){
+						alert(data.info);
+						$('#register_window').hide();
+						$('#login_window').show();
+						//关闭注册窗口
+					}else{
+						alert(data.info);
+					}
+				});
+			}
+	})
+
+
+// 名字检测
+$("#name").blur(function(){
+	var url = "{:U('checkName')}";
+	var name = $('#name').val();
+    var len = name.replace(/[^\x00-\xff]/g, "**").length;
+    if(len < 0 || len > 12){
+        alert("昵称长度过长，请重新填写");
+    }
+	$.post(url,{name:name},function(result){
+    	console.log(result);
+    	if(result.status == 0){
+			$('#name_ment').show();
+			$('#name_ment span').text(result.info);
+    	}else if (result.status == 1){
+    		$('#name_ment').hide();
+    	}
+  	});
+})
+</script>
+
+
+<script type="text/javascript">
+$(document).click(function(){
+	var audio = document.getElementById('mp3Btn_2');
+    audio.volume = .3;
+    audio.play(); 
+})
+
+</script>
+
+
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){ 
+        //播放完毕
+        $('#mp3Btn').on('ended', function() {
+            console.log("音频已播放完成");
+            // $('#music').css('background-image','url(__PUBLIC__img/music-off.png)');
+             audio.play(); //播放
+            	return;
+        });
+        //播放器控制
+        var audio = document.getElementById('mp3Btn');
+        var screen_h = parseInt(window.screen.height);
+		var screen_w = parseInt(window.screen.width);
+		if(screen_h>screen_w){
+            audio.pause();
+        }
+        audio.volume = .3;
+        $('#music').click(function() {
+
+            event.stopPropagation();//防止冒泡
+            if(audio.paused){ //如果当前是暂停状态
+                $('#music').css('background-image','url(__PUBLIC__img/music-on.png)');
+                audio.play(); //播放
+                return;
+            }else{
+            	//当前是播放状态
+                $('#music').css('background-image','url(__PUBLIC__img/music-off.png)');
+                audio.pause(); //暂停''
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+</script>
